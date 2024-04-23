@@ -23,9 +23,11 @@
 		"validate": "run-p lint test:ci test:e2e:headless"
 	},
 	"dependencies": {
+		"@reduxjs/toolkit": "^2.2.3",
 		"bitset": "^5.1.1",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
+		"react-redux": "^9.1.1",
 		"react-router-dom": "6.22.3"
 	},
 	"devDependencies": {
