@@ -1,8 +1,8 @@
+import LinkButton from 'components/LinkButton'
 import type { ReactElement } from 'react'
 import { IconType } from 'react-icons'
 import { FaMapMarkedAlt, FaUser } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { selectProperties } from 'redux-store/slices/properties'
 import { IProperty } from 'types'
 
@@ -11,7 +11,7 @@ function DescriptionTag(props: {
   label: string
 }): ReactElement {
   return (
-    <div className='inline-flex items-baseline gap-1'>
+    <div className='inline-flex items-center gap-1'>
       <props.Icon className='text-sm' />
       <span>{props.label}</span>
     </div>
@@ -53,22 +53,13 @@ export default function Properties(): ReactElement {
                   <p className='font-bold'>
                     <span className='text-yellow-500'>&#9733;</span> {p.rating}
                   </p>
-                  <Link
-                    className='ml-auto inline-block rounded border border-blue-800 bg-white px-2 py-1 text-sm text-blue-800 hover:border-blue-500 hover:text-blue-500 hover:outline-2'
-                    to={`/${p.id}`}
-                  >
-                    Check availability
-                  </Link>
+                  <LinkButton to={`/${p.id}`} label='Check availability' />
                 </div>
               </article>
             </li>
           ))}
         </ul>
       </main>
-      <footer className='text-white'>
-        Copyright &#174; {new Date().getFullYear()} Hostfully Booking. All
-        Rights Reserved
-      </footer>
     </div>
   )
 }
