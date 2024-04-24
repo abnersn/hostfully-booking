@@ -1,9 +1,15 @@
+import Error from 'components/Error'
 import LinkButton from 'components/LinkButton'
-import type { ReactElement } from 'react'
+import Loader from 'components/Loader'
+import { useEffect, type ReactElement } from 'react'
 import type { IconType } from 'react-icons'
 import { FaMapMarkedAlt, FaUser } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
-import { selectProperties } from 'redux-store/slices/properties'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  fetchProperties,
+  selectProperties,
+  selectPropertiesStatus
+} from 'redux-store/slices/properties'
 import type { IProperty } from 'types'
 
 function DescriptionTag({
@@ -23,6 +29,25 @@ function DescriptionTag({
 
 export default function Properties(): ReactElement {
   const properties = useSelector(selectProperties)
+  const status = useSelector(selectPropertiesStatus)
+
+  const dispatch = useDispatch<any>()
+
+  // Fetches array of properties
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchProperties())
+    }
+  }, [status])
+
+  if (status === 'pending') {
+    return <Loader />
+  }
+
+  if (status === 'error') {
+    return <Error />
+  }
+
   return (
     <div className='grid place-items-center pt-4'>
       <header className='w-full max-w-screen-xl'>
