@@ -63,7 +63,6 @@
 		"eslint-plugin-react-hooks": "4.6.0",
 		"eslint-plugin-react-prefer-function-component": "3.3.0",
 		"eslint-plugin-testing-library": "6.2.0",
-		"eslint-plugin-unicorn": "52.0.0",
 		"jsdom": "24.0.0",
 		"msw": "2.2.3",
 		"npm-run-all2": "6.1.2",
