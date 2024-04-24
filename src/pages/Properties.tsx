@@ -1,19 +1,22 @@
 import LinkButton from 'components/LinkButton'
 import type { ReactElement } from 'react'
-import { IconType } from 'react-icons'
+import type { IconType } from 'react-icons'
 import { FaMapMarkedAlt, FaUser } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 import { selectProperties } from 'redux-store/slices/properties'
-import { IProperty } from 'types'
+import type { IProperty } from 'types'
 
-function DescriptionTag(props: {
+function DescriptionTag({
+  Icon,
+  label
+}: {
   Icon: IconType
   label: string
 }): ReactElement {
   return (
     <div className='inline-flex items-center gap-1'>
-      <props.Icon className='text-sm' />
-      <span>{props.label}</span>
+      <Icon className='text-sm' />
+      <span>{label}</span>
     </div>
   )
 }
