@@ -1,14 +1,48 @@
-import { createSlice } from '@reduxjs/toolkit'
+import {
+  SerializedError,
+  createAsyncThunk,
+  createSlice
+} from '@reduxjs/toolkit'
 
 import { RootState } from 'redux-store'
-import { IProperty } from 'types'
+import { IPropertiesSliceState, IProperty } from 'types'
+
+const initialState: IPropertiesSliceState = {
+  data: <IProperty[]>[],
+  status: 'idle',
+  error: null
+}
 
 const propertySlice = createSlice({
   name: 'properties',
-  initialState: <IProperty[]>[],
-  reducers: {}
+  initialState,
+  reducers: {},
+  extraReducers(builder) {
+    builder.addCase(
+      fetchProperties.fulfilled,
+      (state: IPropertiesSliceState, action: { payload: IProperty[] }) => {
+        state.status = 'success'
+        state.data = action.payload
+      }
+    )
+    builder.addCase(fetchProperties.pending, (state: IPropertiesSliceState) => {
+      state.status = 'pending'
+    })
+    builder.addCase(
+      fetchProperties.rejected,
+      (state: IPropertiesSliceState, action: { error: SerializedError }) => {
+        state.status = 'error'
+        state.error = action.error.message
+      }
+    )
+  }
 })
 
-export const selectProperties = (state: RootState) => state.properties
+export const selectProperties = (state: RootState) => state.properties.data
+
+export const fetchProperties = createAsyncThunk(
+  'properties/fetchProperties',
+  async () => fetch('/public/mocks/properties.json').then(res => res.json())
+)
 
 export default propertySlice.reducer
