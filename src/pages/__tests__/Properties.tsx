@@ -1,8 +1,6 @@
 import { screen } from '@testing-library/dom'
 import PropertiesPage from 'pages/Properties'
-import { getPropertiesData, renderWithProvider } from 'testUtils'
-
-const properties = getPropertiesData()
+import { renderWithProvider } from 'testUtils'
 
 const propertiesHasLoaded = async () =>
   screen.findByText(/Find the perfect accomodation/i)
