@@ -1,16 +1,34 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/dom'
 import PropertiesPage from 'pages/Properties'
-
 import properties from '../../mocks/properties.json'
 
-describe('<Properties />', () => {
-  it('renders', async () => {
-    render(<PropertiesPage />)
+import { renderWithProvider } from 'testUtils'
 
+describe('<Properties />', () => {
+  it('renders titles', async () => {
+    renderWithProvider(<PropertiesPage />)
     for (const property of properties) {
       expect(screen.getByText(property.title)).toBeInTheDocument()
-      console.log(property.title)
     }
-    expect(true).toBe(true)
+  })
+  it('shows location, country', async () => {
+    renderWithProvider(<PropertiesPage />)
+    for (const property of properties) {
+      expect(
+        screen.getByText(`${property.location}, ${property.country}`)
+      ).toBeInTheDocument()
+    }
+  })
+  it('shows owner name', async () => {
+    renderWithProvider(<PropertiesPage />)
+    for (const property of properties) {
+      expect(screen.getByText(property.owner)).toBeInTheDocument()
+    }
+  })
+  it('shows rating', async () => {
+    renderWithProvider(<PropertiesPage />)
+    for (const property of properties) {
+      expect(screen.getByText(property.rating)).toBeInTheDocument()
+    }
   })
 })

@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => ({
     css: false,
     include: ['src/**/__tests__/*'],
     globals: true,
+    setupFiles: 'src/setupTests.tsx',
     environment: 'jsdom',
     clearMocks: true,
     coverage: {
