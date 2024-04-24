@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { IProperty } from 'types'
 
 import { RootState } from 'redux-store'
-import mockProperties from '../../mocks/properties.json'
+import { IProperty } from 'types'
 
 const propertySlice = createSlice({
   name: 'properties',
-  initialState: mockProperties as IProperty[],
+  initialState: <IProperty[]>[],
   reducers: {}
 })
 
