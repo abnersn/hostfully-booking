@@ -47,4 +47,5 @@ export const fetchProperties = createAsyncThunk(
   async () => fetch('/public/mocks/properties.json').then(res => res.json())
 )
 
+export const resetProperties = propertySlice.actions.reset
 export default propertySlice.reducer

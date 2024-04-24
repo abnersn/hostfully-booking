@@ -14,9 +14,7 @@ const properties = JSON.parse(propertiesFile)
 
 // Mock requests
 const handlers = [
-  http.get('/public/mocks/properties.json', () => {
-    return HttpResponse.json(properties)
-  })
+  http.get('/public/mocks/properties.json', () => HttpResponse.json(properties))
 ]
 const server = setupServer(...handlers)
 
@@ -25,5 +23,5 @@ beforeAll(() => {
   global.properties = properties
   global.server = server
 })
-afterAll(() => server.close())
 afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
