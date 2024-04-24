@@ -41,6 +41,7 @@ export default function App(): ReactElement {
   }
   return (
     <>
+      <div>{propertiesStatus}</div>
       {propertiesStatus === 'success' ? <AppScreen /> : <Loader />}
       <Copyright />
     </>

@@ -27,11 +27,11 @@ export default function Properties(): ReactElement {
     <div className='grid place-items-center pt-4'>
       <header className='w-full max-w-screen-xl'>
         <h2 className='px-4 text-4xl text-white'>
-          Find the <strong>perfect</strong> accomodation!
+          Find the perfect accomodation!
         </h2>
       </header>
       <main className='mx-auto w-full max-w-screen-xl'>
-        <ul className='grid-cols-auto-fill-400 grid w-full grid-rows-2 gap-4 p-4'>
+        <ul className='grid w-full grid-cols-auto-fill-400 grid-rows-2 gap-4 p-4'>
           {properties.map((p: IProperty) => (
             <li key={p.id}>
               <article className='group flex h-full flex-col overflow-hidden rounded-md bg-white shadow-md hover:shadow-lg'>
