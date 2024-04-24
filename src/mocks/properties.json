@@ -1,11 +1,11 @@
 [
   {
     "id": "aef38f35-d4d4-4b0b-8b45-62b4e9635c94",
-    "title": "Secluded Mountain Retreat with Stunning Views",
+    "title": "Mountain Retreat with Stunning Views",
     "description": "Escape to this secluded mountain retreat and immerse yourself in nature. Wake up to breathtaking views of rolling hills and distant peaks. Enjoy hiking trails, cozy evenings by the fireplace, and stargazing from the hot tub.",
     "owner": "Olivia Smith",
     "location": "Santorini",
-    "picture": "https://images.unsplash.com/photo-1584098731526-e3924fad98db?fit=crop&q=60&auto=format",
+    "picture": "https://images.unsplash.com/photo-1517926967795-31943e805dae?fit=crop&q=60&auto=format",
     "country": "Greece",
     "hasWifi": true,
     "breakfastIncluded": false,
@@ -53,7 +53,7 @@
   },
   {
     "id": "92682f59-c189-4099-bfb3-540c163f4fbe",
-    "title": "Enchanting Villa Overlooking the Vineyards",
+    "title": "Enchanting Villa Over the Vineyards",
     "description": "Indulge in the romance of this enchanting villa. Sip wine on the terrace overlooking the vineyards, explore the nearby wineries, and unwind in the clawfoot bathtub. A taste of la dolce vita.",
     "owner": "Jackson Lee",
     "picture": "https://images.unsplash.com/photo-1444214058525-761aeb793113?fit=crop&q=60&auto=format",

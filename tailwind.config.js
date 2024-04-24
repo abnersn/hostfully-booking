@@ -5,8 +5,10 @@ const formsPlugin = require('@tailwindcss/forms')
 const config = {
   content: ['index.html', 'src/**/*.tsx'],
   theme: {
-    fontFamily: {
-      sans: ['Inter', ...defaultConfig.theme.fontFamily.sans]
+    extend: {
+      gridTemplateColumns: {
+        'auto-fill-400': 'repeat(auto-fill, minmax(400px, 1fr))',
+      },
     }
   },
   experimental: { optimizeUniversalDefaults: true },
