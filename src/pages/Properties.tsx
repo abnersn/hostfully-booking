@@ -31,9 +31,9 @@ export default function Properties(): ReactElement {
         <ul className='grid-cols-auto-fill-400 grid w-full grid-rows-2 gap-4 p-4'>
           {properties.map((p: IProperty) => (
             <li key={p.id}>
-              <article className='flex h-full flex-col overflow-hidden rounded-md bg-white shadow-md hover:shadow-lg'>
+              <article className='group flex h-full flex-col overflow-hidden rounded-md bg-white shadow-md hover:shadow-lg'>
                 <img
-                  className='h-60 w-full object-cover'
+                  className='h-60 w-full object-cover group-hover:brightness-125'
                   src={p.picture}
                   alt={p.title}
                 />
