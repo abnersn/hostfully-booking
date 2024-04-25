@@ -7,6 +7,7 @@ import {
   useState
 } from 'react'
 import { FaCheck } from 'react-icons/fa'
+import { FaXmark } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 import { store } from 'redux-store'
 import { IProperty } from 'types'
@@ -55,16 +56,47 @@ export default function BookNow({
     if (!moment(startDate).isValid() || !moment(endDate).isValid()) {
       return
     }
-    store.dispatch({
-      type: 'bookings/add',
-      payload: {
-        id: `${property.id}-${Date.now()}`,
-        propertyId: property.id,
-        startDate: startDate?.toISOString(),
-        endDate: endDate?.toISOString()
-      }
-    })
-    setStatus('added')
+    try {
+      store.dispatch({
+        type: 'bookings/add',
+        payload: {
+          id: `${property.id}-${Date.now()}`,
+          propertyId: property.id,
+          startDate: startDate?.toISOString(),
+          endDate: endDate?.toISOString()
+        }
+      })
+      setStatus('added')
+    } catch (error) {
+      setStatus('error')
+    }
+  }
+
+  const handleTryAgain = () => {
+    setStartDate(null)
+    setEndDate(null)
+    setStatus('idle')
+  }
+
+  if (status === 'error') {
+    return (
+      <div className='mt-auto flex flex-col bg-blue-900 p-4 text-white'>
+        <h3 className='text-lg font-semibold'>
+          <div className='flex h-8 w-8 items-center justify-center rounded-full border border-red-500 text-red-500'>
+            <FaXmark />
+          </div>
+          Error
+        </h3>
+        <p className='mb-2'>Property is not available for these dates.</p>
+        <button
+          onClick={handleTryAgain}
+          className='ml-auto rounded-lg bg-blue-600 px-4 py-2 text-lg shadow-md hover:bg-blue-500 active:bg-blue-700 '
+          type='submit'
+        >
+          Try again
+        </button>
+      </div>
+    )
   }
 
   if (status === 'added') {
