@@ -1,15 +1,17 @@
 import type { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
+interface ILinkButtonProps {
+  label: string
+  to: string
+  variant?: 'white' | 'blue'
+}
+
 export default function ({
   label,
   to,
   variant = 'blue'
-}: {
-  label: string
-  to: string
-  variant: 'white' | 'blue' | undefined
-}): ReactElement {
+}: ILinkButtonProps): ReactElement {
   let colorClasses =
     'border-blue-800 text-blue-800 hover:border-blue-500 hover:text-blue-500 active:bg-blue-50'
   if (variant === 'white') {
