@@ -3,6 +3,7 @@ import { ReactElement } from 'react'
 import { useSelector } from 'react-redux'
 
 import Datepicker, { DateValueType } from 'react-tailwindcss-datepicker'
+import { RootState } from 'redux-store'
 import { selectAllBookingsForProperty } from 'redux-store/slices/bookings'
 
 interface IDatePickerProps {
@@ -16,7 +17,9 @@ interface IDatePickerProps {
 export default function BookingDatepicker(
   props: IDatePickerProps
 ): ReactElement {
-  const bookings = useSelector(selectAllBookingsForProperty(props.propertyId))
+  const bookings = useSelector((state: RootState) =>
+    selectAllBookingsForProperty(state, props.propertyId)
+  )
   const handleChange = (value: DateValueType) => {
     let startDate = null
     let endDate = null

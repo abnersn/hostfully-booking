@@ -13,6 +13,7 @@ import { IoArrowBackOutline } from 'react-icons/io5'
 import { LuBedDouble, LuBedSingle } from 'react-icons/lu'
 import { useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
+import { RootState } from 'redux-store'
 import {
   selectPropertiesStatus,
   selectPropertyById
@@ -93,7 +94,9 @@ function Rating({ value }: { value: number }): ReactElement {
 export default function Properties(): ReactElement {
   const { propertyId } = useParams<IDetailsParams>() as IDetailsParams
 
-  const property = useSelector(selectPropertyById(propertyId))
+  const property = useSelector((state: RootState) =>
+    selectPropertyById(state, propertyId)
+  )
   const status = useSelector(selectPropertiesStatus)
 
   if (status === 'error') {
