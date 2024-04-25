@@ -41,6 +41,12 @@ export default function BookNow({
     ev.preventDefault()
   }
 
+  let total = 0
+  let diff = 0
+  if (startDate && endDate) {
+    diff = moment(endDate).diff(startDate, 'days')
+    total = diff * property.pricingPerNight
+  }
   return (
     <form
       onSubmit={handleSubmit}
@@ -48,7 +54,7 @@ export default function BookNow({
     >
       <Pricing value={property.pricingPerNight} />
       <hr className='my-2 border-blue-400' />
-      <div className='mb-4 flex w-full flex-col gap-2 md:flex-row'>
+      <div className='mb-1 flex w-full flex-col gap-2 md:flex-row'>
         <div className='flex-1'>
           <h3 className='mb-1'>Start date</h3>
           <BookingDatepicker
@@ -66,6 +72,12 @@ export default function BookNow({
           />
         </div>
       </div>
+      <p
+        className='text-sm'
+        style={{
+          visibility: total ? 'visible' : 'hidden'
+        }}
+      >{`Total for ${diff} ${diff > 1 ? 'night' : 'night'}: ${formatter.format(total)}`}</p>
       <button
         className='ml-auto rounded-lg bg-orange-500 px-4 py-2 text-lg shadow-md hover:bg-yellow-500 active:bg-yellow-600'
         type='submit'
