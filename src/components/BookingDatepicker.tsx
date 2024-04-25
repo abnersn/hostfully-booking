@@ -1,27 +1,23 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement } from 'react'
 
-import Datepicker from 'tailwind-datepicker-react'
+import Datepicker, { DateValueType } from 'react-tailwindcss-datepicker'
 
 interface IDatePickerProps {
-  minDate: Date
-  onChange: (date: Date) => void
+  onChange: (date: DateValueType) => void
+  value: DateValueType
 }
 
 export default function BookingDatepicker(
   props: IDatePickerProps
 ): ReactElement {
-  const [show, setShow] = useState(false)
   return (
-    <>
-      <Datepicker
-        show={show}
-        setShow={setShow}
-        onChange={props.onChange}
-        options={{
-          minDate: props.minDate,
-          defaultDate: null
-        }}
-      />
-    </>
+    <Datepicker
+      popoverDirection='up'
+      placeholder='Select date'
+      asSingle={true}
+      useRange={false}
+      value={props.value}
+      onChange={props.onChange}
+    />
   )
 }

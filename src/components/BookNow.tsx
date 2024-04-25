@@ -1,5 +1,5 @@
 import { FormEvent, FormEventHandler, ReactElement, useState } from 'react'
-
+import type { DateValueType } from 'react-tailwindcss-datepicker'
 import { IProperty } from 'types'
 import BookingDatepicker from './BookingDatepicker'
 
@@ -25,12 +25,13 @@ export default function BookNow({
 }: {
   property: IProperty
 }): ReactElement {
-  const [startDate, setStartDate] = useState<Date | null>(null)
-  const [endDate, setEndDate] = useState<Date | null>(null)
+  const [startDate, setStartDate] = useState<DateValueType>(null)
+  const [endDate, setEndDate] = useState<DateValueType>(null)
 
   const handleSubmit: FormEventHandler = (ev: FormEvent) => {
     ev.preventDefault()
   }
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -38,17 +39,14 @@ export default function BookNow({
     >
       <Pricing value={property.pricingPerNight} />
       <hr className='my-2 border-blue-400' />
-      <div className='mb-4 flex w-full gap-2'>
+      <div className='mb-4 flex w-full flex-col gap-2 md:flex-row'>
         <div className='flex-1'>
           <h3 className='mb-1'>Start date</h3>
-          <BookingDatepicker minDate={new Date()} onChange={setStartDate} />
+          <BookingDatepicker value={startDate} onChange={setStartDate} />
         </div>
         <div className='flex-1'>
           <h3 className='mb-1'>End date</h3>
-          <BookingDatepicker
-            minDate={startDate || new Date()}
-            onChange={setEndDate}
-          />
+          <BookingDatepicker value={endDate} onChange={setEndDate} />
         </div>
       </div>
       <button
