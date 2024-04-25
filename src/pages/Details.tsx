@@ -109,12 +109,12 @@ function BookNow({ property }: { property: IProperty }): ReactElement {
     >
       <Pricing value={property.pricingPerNight} />
       <hr className='my-2 border-blue-400' />
-      <div className='mb-4 flex gap-2'>
-        <div>
+      <div className='mb-4 flex w-full gap-2'>
+        <div className='flex-1'>
           <h3 className='mb-1'>Start date</h3>
           <Datepicker show={false} setShow={() => {}} />
         </div>
-        <div>
+        <div className='flex-1'>
           <h3 className='mb-1'>End date</h3>
           <Datepicker show={false} setShow={() => {}} />
         </div>
@@ -140,14 +140,14 @@ export default function Properties(): ReactElement {
 
   return (
     <div className='grid place-items-center pt-4'>
-      <header className='flex w-full max-w-screen-xl items-center gap-4 px-4 text-4xl text-white'>
+      <header className='flex w-full max-w-screen-xl items-center gap-4 px-4 text-xl text-white md:text-4xl'>
         <Link to='/'>
           <IoArrowBackOutline />
         </Link>
         <h2>{property.title}</h2>
       </header>
       <div className='mx-auto w-full max-w-screen-xl p-4'>
-        <div className='box-border grid h-44  w-full grid-cols-[2fr_1fr] grid-rows-1 overflow-hidden rounded-lg bg-white shadow-lg'>
+        <div className='box-border grid w-full grid-cols-1 grid-rows-[16rem_1fr] overflow-hidden rounded-lg bg-white shadow-lg md:h-44 md:grid-cols-[2fr_1fr] md:grid-rows-1'>
           <aside className='grid-areas-image grid grid-rows-1'>
             <img
               className='grid-in-image h-full w-full object-cover'
