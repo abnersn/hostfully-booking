@@ -32,6 +32,7 @@
 	},
 	"devDependencies": {
 		"@nabla/vite-plugin-eslint": "2.0.2",
+		"@savvywombat/tailwindcss-grid-areas": "^4.0.0",
 		"@tailwindcss/forms": "0.5.7",
 		"@testing-library/cypress": "10.0.1",
 		"@testing-library/dom": "10.0.0",

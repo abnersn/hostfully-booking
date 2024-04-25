@@ -73,6 +73,14 @@ function Description({ property }: { property: IProperty }): ReactElement {
   )
 }
 
+function Rating({ value }: { value: number }): ReactElement {
+  return (
+    <p className='grid-in-image mr-auto place-self-end rounded-tr-lg bg-blue-900 px-4 py-2 text-4xl font-bold text-white'>
+      <span className='text-yellow-500'>&#9733;</span> <span>{value}</span>
+    </p>
+  )
+}
+
 export default function Properties(): ReactElement {
   const { propertyId } = useParams<IDetailsParams>() as IDetailsParams
 
@@ -91,13 +99,14 @@ export default function Properties(): ReactElement {
         <h2>{property.title}</h2>
       </header>
       <div className='mx-auto w-full max-w-screen-xl p-4'>
-        <div className='box-border grid h-44  w-full grid-cols-[2fr_1fr] grid-rows-1 overflow-hidden rounded-lg bg-white'>
-          <aside>
+        <div className='box-border grid h-44  w-full grid-cols-[2fr_1fr] grid-rows-1 overflow-hidden rounded-lg bg-white shadow-lg'>
+          <aside className='grid-areas-image grid grid-rows-1'>
             <img
-              className='h-full w-full object-cover'
+              className='grid-in-image h-full w-full object-cover'
               src={property.picture}
               alt={property.title}
             />
+            <Rating value={property.rating} />
           </aside>
           <main className='p-4'>
             <div className='mb-2 flex gap-4'>
