@@ -20,6 +20,7 @@ describe('<Properties />', () => {
     const heading = await screen.findByText('Sorry, an error occurred')
     expect(heading).toBeInTheDocument()
 
+    // Test if reload is working
     const reload = vi.fn()
     vi.stubGlobal('location', { reload })
     const refreshButton = screen.getByText(/Try again/)
