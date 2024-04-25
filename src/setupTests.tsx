@@ -5,6 +5,7 @@ import { readFileSync } from 'fs'
 import { HttpResponse, http } from 'msw'
 import { setupServer } from 'msw/node'
 import path from 'path'
+import { store } from 'redux-store'
 
 const propertiesFile = readFileSync(
   path.join(process.cwd(), '/public/mocks/properties.json'),
@@ -28,6 +29,7 @@ beforeAll(() => {
 const originalLocation = window.location
 beforeEach(() => {
   window.location = originalLocation
+  store.dispatch({ type: 'properties/reset' })
 })
 
 afterEach(() => server.resetHandlers())
