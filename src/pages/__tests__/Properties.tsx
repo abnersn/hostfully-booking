@@ -20,9 +20,11 @@ describe('<Properties />', () => {
     const heading = await screen.findByText('Sorry, an error occurred')
     expect(heading).toBeInTheDocument()
 
-    // Test if reload is working
+    // We cannot use window.reload from jest, so we must stub it
     const reload = vi.fn()
     vi.stubGlobal('location', { reload })
+
+    // Test if refresh button calls window.location.reload
     const refreshButton = screen.getByText(/Try again/)
     refreshButton.click()
     expect(reload).toHaveBeenCalled()
