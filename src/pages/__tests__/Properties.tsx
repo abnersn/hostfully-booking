@@ -2,6 +2,7 @@ import { screen } from '@testing-library/dom'
 import { HttpResponse, http } from 'msw'
 import PropertiesPage from 'pages/Properties'
 import { renderWithProvider } from 'testUtils'
+import { ratingsFormatter } from 'utils'
 
 const propertiesHasLoaded = async () =>
   screen.findByText(/Find the perfect accomodation/i)
@@ -57,7 +58,9 @@ describe('<Properties />', () => {
     renderWithProvider(<PropertiesPage />)
     await propertiesHasLoaded()
     for (const property of properties) {
-      expect(screen.getByText(property.rating)).toBeInTheDocument()
+      expect(
+        screen.getByText(ratingsFormatter.format(property.rating))
+      ).toBeInTheDocument()
     }
   })
 })
