@@ -1,6 +1,7 @@
-import { FormEvent, FormEventHandler, ReactElement } from 'react'
-import Datepicker from 'tailwind-datepicker-react'
+import { FormEvent, FormEventHandler, ReactElement, useState } from 'react'
+
 import { IProperty } from 'types'
+import BookingDatepicker from './BookingDatepicker'
 
 const formatter = Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -24,6 +25,9 @@ export default function BookNow({
 }: {
   property: IProperty
 }): ReactElement {
+  const [startDate, setStartDate] = useState<Date | null>(null)
+  const [endDate, setEndDate] = useState<Date | null>(null)
+
   const handleSubmit: FormEventHandler = (ev: FormEvent) => {
     ev.preventDefault()
   }
@@ -37,11 +41,14 @@ export default function BookNow({
       <div className='mb-4 flex w-full gap-2'>
         <div className='flex-1'>
           <h3 className='mb-1'>Start date</h3>
-          <Datepicker show={false} setShow={() => {}} />
+          <BookingDatepicker minDate={new Date()} onChange={setStartDate} />
         </div>
         <div className='flex-1'>
           <h3 className='mb-1'>End date</h3>
-          <Datepicker show={false} setShow={() => {}} />
+          <BookingDatepicker
+            minDate={startDate || new Date()}
+            onChange={setEndDate}
+          />
         </div>
       </div>
       <button
