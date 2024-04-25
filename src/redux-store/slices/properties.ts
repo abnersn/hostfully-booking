@@ -6,6 +6,8 @@ import {
 
 import { RootState } from 'redux-store'
 import { IPropertiesSliceState, IProperty } from 'types'
+import bookProperty from 'utils/bookProperty'
+import { add as addBooking } from './bookings'
 
 const initialState: IPropertiesSliceState = {
   data: <IProperty[]>[],
@@ -35,6 +37,27 @@ const propertySlice = createSlice({
       (state: IPropertiesSliceState, action: { error: SerializedError }) => {
         state.status = 'error'
         state.error = action.error.message
+      }
+    )
+    builder.addCase(
+      addBooking,
+      (
+        state: IPropertiesSliceState,
+        action: {
+          payload: { property: IProperty; startDate: Date; endDate: Date }
+        }
+      ) => {
+        const properties = state.data
+        const { property, startDate, endDate } = action.payload
+        const propertyIndex = properties.findIndex(p => p.id === property.id)
+        if (propertyIndex === -1) {
+          return
+        }
+        properties[propertyIndex].schedule = bookProperty(
+          property,
+          startDate,
+          endDate
+        )
       }
     )
   }

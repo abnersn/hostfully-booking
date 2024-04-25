@@ -10,7 +10,7 @@ const bookingsSlice = createSlice({
     add(state, action) {
       state.push(action.payload)
     },
-    delete(state, action) {
+    remove(state, action) {
       state = state.filter(b => b.id !== action.payload)
     }
   }
@@ -23,4 +23,5 @@ export const selectAllBookingsForProperty =
 export const selectBookingById = (bookingId: string) => (state: RootState) =>
   state.bookings.find(booking => booking.id === bookingId)
 
+export const { add, remove } = bookingsSlice.actions
 export default bookingsSlice.reducer
