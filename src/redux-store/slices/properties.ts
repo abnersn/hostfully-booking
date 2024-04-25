@@ -47,6 +47,7 @@ const propertySlice = createSlice({
           payload: { property: IProperty; startDate: Date; endDate: Date }
         }
       ) => {
+        console.log('I ran')
         const properties = state.data
         const { property, startDate, endDate } = action.payload
         const propertyIndex = properties.findIndex(p => p.id === property.id)

@@ -1,5 +1,11 @@
 import moment from 'moment'
-import { FormEvent, FormEventHandler, ReactElement, useState } from 'react'
+import {
+  FormEvent,
+  FormEventHandler,
+  ReactElement,
+  useEffect,
+  useState
+} from 'react'
 import { store } from 'redux-store'
 import { IProperty } from 'types'
 import BookingDatepicker from './BookingDatepicker'
@@ -28,6 +34,18 @@ export default function BookNow({
 }): ReactElement {
   const [startDate, setStartDate] = useState<Date | null>(null)
   const [endDate, setEndDate] = useState<Date | null>(null)
+
+  useEffect(() => {
+    if (!startDate || !endDate) {
+      return
+    }
+
+    // Forbid same day
+    if (moment(endDate).diff(startDate, 'hours') < 24) {
+      setStartDate(null)
+      setEndDate(null)
+    }
+  }, [startDate, endDate])
 
   const handleSubmit: FormEventHandler = (ev: FormEvent) => {
     ev.preventDefault()
@@ -61,6 +79,7 @@ export default function BookNow({
         <div className='flex-1'>
           <h3 className='mb-1'>Date</h3>
           <BookingDatepicker
+            propertyId={property.id}
             minDate={new Date()}
             startDate={startDate}
             endDate={endDate}
