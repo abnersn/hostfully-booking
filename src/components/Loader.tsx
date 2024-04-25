@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react'
 import { FaSpinner } from 'react-icons/fa'
+import Title from './Title'
 
 function Skeleton(): ReactElement {
   return (
@@ -13,7 +14,7 @@ export default function (): ReactElement {
   return (
     <div className='grid place-items-center pt-4'>
       <header className='w-full max-w-screen-xl'>
-        <h2 className='px-4 text-4xl text-white'>Loading accomodations...</h2>
+        <Title>Loading accomodations...</Title>
       </header>
       <main className='mx-auto w-full max-w-screen-xl'>
         <ul className='grid w-full grid-cols-auto-fill-400 grid-rows-2 gap-4 p-4'>

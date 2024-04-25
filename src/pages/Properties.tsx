@@ -2,6 +2,7 @@ import DescriptionTag from 'components/DescriptionTag'
 import Error from 'components/Error'
 import LinkButton from 'components/LinkButton'
 import Loader from 'components/Loader'
+import Title from 'components/Title'
 import { type ReactElement } from 'react'
 import { FaMapMarkedAlt, FaUser } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
@@ -26,9 +27,7 @@ export default function Properties(): ReactElement {
   return (
     <div className='grid place-items-center pt-4'>
       <header className='w-full max-w-screen-xl'>
-        <h2 className='px-4 text-4xl text-white'>
-          Find the perfect accomodation!
-        </h2>
+        <Title>Find the perfect accomodation!</Title>
       </header>
       <main className='mx-auto w-full max-w-screen-xl'>
         <ul className='grid w-full grid-cols-auto-fill-400 grid-rows-2 gap-4 p-4'>

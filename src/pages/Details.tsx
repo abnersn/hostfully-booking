@@ -1,4 +1,5 @@
 import DescriptionTag from 'components/DescriptionTag'
+import Title from 'components/Title'
 import { FormEvent, FormEventHandler, type ReactElement } from 'react'
 import { IconType } from 'react-icons'
 import { CgCoffee } from 'react-icons/cg'
@@ -140,11 +141,13 @@ export default function Properties(): ReactElement {
 
   return (
     <div className='grid place-items-center pt-4'>
-      <header className='flex w-full max-w-screen-xl items-center gap-4 px-4 text-xl text-white md:text-4xl'>
-        <Link to='/'>
-          <IoArrowBackOutline />
-        </Link>
-        <h2>{property.title}</h2>
+      <header className='w-full max-w-screen-xl'>
+        <Title>
+          <Link to='/'>
+            <IoArrowBackOutline />
+          </Link>{' '}
+          {property.title}
+        </Title>
       </header>
       <div className='mx-auto w-full max-w-screen-xl p-4'>
         <div className='box-border grid w-full grid-cols-1 grid-rows-[16rem_1fr] overflow-hidden rounded-lg bg-white shadow-lg md:h-44 md:grid-cols-[2fr_1fr] md:grid-rows-1'>

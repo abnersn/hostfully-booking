@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react'
 import { FaArrowRotateRight } from 'react-icons/fa6'
+import Title from './Title'
 
 export default function (): ReactElement {
   const handleRefreshClick = () => {
@@ -8,7 +9,7 @@ export default function (): ReactElement {
   return (
     <div className='grid place-items-center pt-4'>
       <header className='w-full max-w-screen-xl'>
-        <h2 className='px-4 text-4xl text-white'>Sorry, an error occurred</h2>
+        <Title>Sorry, an error occurred</Title>
       </header>
       <main className='mx-auto w-full max-w-screen-xl'>
         <div className='flex w-full flex-col gap-2 p-4 text-lg text-white'>
