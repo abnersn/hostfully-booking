@@ -1,12 +1,11 @@
 import Error from 'components/Error'
 import LinkButton from 'components/LinkButton'
 import Loader from 'components/Loader'
-import { useEffect, type ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import type { IconType } from 'react-icons'
 import { FaMapMarkedAlt, FaUser } from 'react-icons/fa'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import {
-  fetchProperties,
   selectProperties,
   selectPropertiesStatus
 } from 'redux-store/slices/properties'
@@ -30,15 +29,6 @@ function DescriptionTag({
 export default function Properties(): ReactElement {
   const properties = useSelector(selectProperties)
   const status = useSelector(selectPropertiesStatus)
-
-  const dispatch = useDispatch<any>()
-
-  // Fetches array of properties
-  useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchProperties())
-    }
-  }, [status])
 
   if (status === 'pending') {
     return <Loader />
@@ -81,7 +71,10 @@ export default function Properties(): ReactElement {
                   <p className='font-bold'>
                     <span className='text-yellow-500'>&#9733;</span> {p.rating}
                   </p>
-                  <LinkButton to={`/${p.id}`} label='Check availability' />
+                  <LinkButton
+                    to={`/properties/${p.id}`}
+                    label='Check availability'
+                  />
                 </div>
               </article>
             </li>

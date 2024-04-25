@@ -43,6 +43,8 @@ const propertySlice = createSlice({
 export const selectProperties = (state: RootState) => state.properties.data
 export const selectPropertiesStatus = (state: RootState) =>
   state.properties.status
+export const selectPropertyById = (id: string) => (state: RootState) =>
+  state.properties.data.find(p => p.id === id)
 
 export const fetchProperties = createAsyncThunk(
   'properties/fetchProperties',
