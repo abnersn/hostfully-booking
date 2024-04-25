@@ -12,6 +12,7 @@ import { Link, useParams } from 'react-router-dom'
 import { selectPropertyById } from 'redux-store/slices/properties'
 import Datepicker from 'tailwind-datepicker-react'
 import { IProperty } from 'types'
+import { ratingsFormatter } from 'utils'
 type IDetailsParams = {
   propertyId: string
 }
@@ -77,7 +78,8 @@ function Description({ property }: { property: IProperty }): ReactElement {
 function Rating({ value }: { value: number }): ReactElement {
   return (
     <p className='grid-in-image mr-auto place-self-end rounded-tr-lg bg-blue-900 px-4 py-2 text-4xl font-bold text-white'>
-      <span className='text-yellow-500'>&#9733;</span> <span>{value}</span>
+      <span className='text-yellow-500'>&#9733;</span>{' '}
+      <span>{ratingsFormatter.format(value)}</span>
     </p>
   )
 }

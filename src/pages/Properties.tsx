@@ -12,6 +12,8 @@ import {
 } from 'redux-store/slices/properties'
 import type { IProperty } from 'types'
 
+import { ratingsFormatter } from '../utils'
+
 export default function Properties(): ReactElement {
   const properties = useSelector(selectProperties)
   const status = useSelector(selectPropertiesStatus)
@@ -53,7 +55,8 @@ export default function Properties(): ReactElement {
                 </header>
                 <div className='mt-auto flex px-2 pb-2'>
                   <p className='font-bold'>
-                    <span className='text-yellow-500'>&#9733;</span> {p.rating}
+                    <span className='text-yellow-500'>&#9733;</span>{' '}
+                    {ratingsFormatter.format(p.rating)}
                   </p>
                   <LinkButton
                     to={`/properties/${p.id}`}
