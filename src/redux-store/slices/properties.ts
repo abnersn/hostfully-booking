@@ -16,7 +16,9 @@ const initialState: IPropertiesSliceState = {
 const propertySlice = createSlice({
   name: 'properties',
   initialState,
-  reducers: {},
+  reducers: {
+    reset: () => initialState
+  },
   extraReducers(builder) {
     builder.addCase(
       fetchProperties.fulfilled,
