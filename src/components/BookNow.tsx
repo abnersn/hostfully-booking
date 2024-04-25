@@ -6,6 +6,8 @@ import {
   useEffect,
   useState
 } from 'react'
+import { FaCheck } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 import { store } from 'redux-store'
 import { IProperty } from 'types'
 import BookingDatepicker from './BookingDatepicker'
@@ -34,6 +36,7 @@ export default function BookNow({
 }): ReactElement {
   const [startDate, setStartDate] = useState<Date | null>(null)
   const [endDate, setEndDate] = useState<Date | null>(null)
+  const [status, setStatus] = useState<'idle' | 'added' | 'error'>('idle')
 
   useEffect(() => {
     if (!startDate || !endDate) {
@@ -61,6 +64,33 @@ export default function BookNow({
         endDate: endDate?.toISOString()
       }
     })
+    setStatus('added')
+  }
+
+  if (status === 'added') {
+    return (
+      <div className='mt-auto flex flex-col bg-blue-900 p-4 text-white'>
+        <h3 className='text-lg font-semibold'>
+          <div className='flex h-8 w-8 items-center justify-center rounded-full border border-green-500 text-green-500'>
+            <FaCheck />
+          </div>
+          Booking completed
+        </h3>
+        <p>
+          From: <time>{moment(startDate).format('LL')}</time>
+        </p>
+        <p>
+          To: <time>{moment(endDate).format('LL')}</time>
+        </p>
+        <Link
+          to='/'
+          className='ml-auto rounded-lg bg-green-600 px-4 py-2 text-lg shadow-md hover:bg-green-500 active:bg-green-700 '
+          type='submit'
+        >
+          Back to gallery
+        </Link>
+      </div>
+    )
   }
 
   let total = 0
