@@ -17,7 +17,6 @@ export default function BookingDatepicker(
   props: IDatePickerProps
 ): ReactElement {
   const bookings = useSelector(selectAllBookingsForProperty(props.propertyId))
-  console.log(bookings)
   const handleChange = (value: DateValueType) => {
     let startDate = null
     let endDate = null
@@ -31,6 +30,7 @@ export default function BookingDatepicker(
     <Datepicker
       popoverDirection='up'
       placeholder='Select date'
+      disabledDates={bookings}
       useRange={true}
       displayFormat='MMM DD, YYYY'
       value={{ startDate: props.startDate, endDate: props.endDate }}

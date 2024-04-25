@@ -55,6 +55,7 @@ export default function BookNow({
     store.dispatch({
       type: 'bookings/add',
       payload: {
+        id: `${property.id}-${Date.now()}`,
         propertyId: property.id,
         startDate: startDate?.toISOString(),
         endDate: endDate?.toISOString()

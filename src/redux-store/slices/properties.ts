@@ -1,6 +1,7 @@
 import {
   SerializedError,
   createAsyncThunk,
+  createSelector,
   createSlice
 } from '@reduxjs/toolkit'
 
@@ -69,9 +70,11 @@ const propertySlice = createSlice({
 export const selectProperties = (state: RootState) => state.properties.data
 export const selectPropertiesStatus = (state: RootState) =>
   state.properties.status
-export const selectPropertyById = (id: string) => (state: RootState) =>
-  state.properties.data.find(p => p.id === id)
 
+export const selectPropertyById = createSelector(
+  [state => state.properties.data, (_state, id) => id],
+  (properties: IProperty[], id) => properties.find(p => p.id === id)
+)
 export const fetchProperties = createAsyncThunk(
   'properties/fetchProperties',
   async () => fetch('/public/mocks/properties.json').then(res => res.json())

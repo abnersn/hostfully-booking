@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { RootState } from 'redux-store'
 
 import { IBooking } from 'types'
@@ -16,12 +16,21 @@ const bookingsSlice = createSlice({
   }
 })
 
-export const selectAllBookingsForProperty =
-  (propertyId: string) => (state: RootState) =>
-    state.bookings.filter(booking => booking.propertyId === propertyId)
+const selectBookings = (state: RootState) => state.bookings
+const selectPropertyId = (_state: RootState, propertyId: string) => propertyId
+const selectBookingId = (_state: RootState, bookingId: string) => bookingId
 
-export const selectBookingById = (bookingId: string) => (state: RootState) =>
-  state.bookings.find(booking => booking.id === bookingId)
+export const selectAllBookingsForProperty = createSelector(
+  [selectBookings, selectPropertyId],
+  (bookings: IBooking[], propertyId) =>
+    bookings.filter(booking => booking.propertyId === propertyId)
+)
+
+export const selectBookingById = createSelector(
+  [selectBookings, selectBookingId],
+  (bookings: IBooking[], bookingId) =>
+    bookings.find(booking => booking.id === bookingId)
+)
 
 export const { add, remove } = bookingsSlice.actions
 export default bookingsSlice.reducer
