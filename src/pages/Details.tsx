@@ -1,5 +1,7 @@
 import BookNow from 'components/BookNow'
 import DescriptionTag from 'components/DescriptionTag'
+import Error from 'components/Error'
+import Loader from 'components/Loader'
 import NotFound from 'components/NotFound'
 import { Container, Header, Title } from 'components/layout'
 import type { ReactElement } from 'react'
@@ -11,7 +13,10 @@ import { IoArrowBackOutline } from 'react-icons/io5'
 import { LuBedDouble, LuBedSingle } from 'react-icons/lu'
 import { useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
-import { selectPropertyById } from 'redux-store/slices/properties'
+import {
+  selectPropertiesStatus,
+  selectPropertyById
+} from 'redux-store/slices/properties'
 import { IProperty } from 'types'
 import { ratingsFormatter } from 'utils'
 type IDetailsParams = {
@@ -89,6 +94,15 @@ export default function Properties(): ReactElement {
   const { propertyId } = useParams<IDetailsParams>() as IDetailsParams
 
   const property = useSelector(selectPropertyById(propertyId))
+  const status = useSelector(selectPropertiesStatus)
+
+  if (status === 'error') {
+    return <Error />
+  }
+
+  if (status === 'pending') {
+    return <Loader />
+  }
 
   if (!property) {
     return <NotFound />
