@@ -23,5 +23,12 @@ beforeAll(() => {
   global.properties = properties
   global.server = server
 })
+
+// Mock window location to avoid errors when calling refresh
+const originalLocation = window.location
+beforeEach(() => {
+  window.location = originalLocation
+})
+
 afterEach(() => server.resetHandlers())
 afterAll(() => server.close())
