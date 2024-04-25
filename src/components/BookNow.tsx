@@ -1,5 +1,6 @@
 import moment from 'moment'
 import { FormEvent, FormEventHandler, ReactElement, useState } from 'react'
+import { store } from 'redux-store'
 import { IProperty } from 'types'
 import BookingDatepicker from './BookingDatepicker'
 
@@ -30,6 +31,17 @@ export default function BookNow({
 
   const handleSubmit: FormEventHandler = (ev: FormEvent) => {
     ev.preventDefault()
+    if (!startDate || !endDate) {
+      return
+    }
+    store.dispatch({
+      type: 'booking/add',
+      payload: {
+        property,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString()
+      }
+    })
   }
 
   let total = 0
@@ -66,7 +78,8 @@ export default function BookNow({
         }}
       >{`Total for ${diff} ${diff > 1 ? 'nights' : 'night'}: ${formatter.format(total)}`}</p>
       <button
-        className='ml-auto rounded-lg bg-orange-500 px-4 py-2 text-lg shadow-md hover:bg-yellow-500 active:bg-yellow-600'
+        disabled={!startDate || !endDate}
+        className='ml-auto rounded-lg bg-orange-500 px-4 py-2 text-lg shadow-md hover:bg-yellow-500 active:bg-yellow-600 disabled:bg-gray-500'
         type='submit'
       >
         Book now!
