@@ -2,7 +2,7 @@ import DescriptionTag from 'components/DescriptionTag'
 import Error from 'components/Error'
 import LinkButton from 'components/LinkButton'
 import Loader from 'components/Loader'
-import Title from 'components/Title'
+
 import { type ReactElement } from 'react'
 import { FaMapMarkedAlt, FaUser } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
@@ -12,7 +12,7 @@ import {
 } from 'redux-store/slices/properties'
 import type { IProperty } from 'types'
 
-import { Container, Header, Main } from 'components/layout'
+import { Container, Header, Main, Title } from 'components/layout'
 import { ratingsFormatter } from '../utils'
 
 export default function Properties(): ReactElement {

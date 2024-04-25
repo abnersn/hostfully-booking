@@ -1,5 +1,5 @@
-
 import DescriptionTag from 'components/DescriptionTag'
+import NotFound from 'components/NotFound'
 import { Container, Header, Title } from 'components/layout'
 import { FormEvent, FormEventHandler, type ReactElement } from 'react'
 import { IconType } from 'react-icons'
@@ -139,9 +139,7 @@ export default function Properties(): ReactElement {
   const property = useSelector(selectPropertyById(propertyId))
 
   if (!property) {
-    return (
-      
-    )
+    return <NotFound />
   }
 
   return (
