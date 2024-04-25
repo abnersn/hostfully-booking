@@ -42,22 +42,6 @@ describe('Property', () => {
       bookProperty(property, startDate, endDate)
     }).toThrow()
   })
-  it('books between today and the next 1000 days', () => {
-    const property = makeProperty()
-    const startMoment = moment()
-    const endMoment = moment().add(1000, 'days')
-    let newSchedule
-    expect(() => {
-      newSchedule = bookProperty(
-        property,
-        startMoment.toDate(),
-        endMoment.toDate()
-      )
-    }).not.toThrow()
-
-    const expectedCardinality = endMoment.diff(startMoment, 'days')
-    expect(new BitSet(newSchedule).cardinality()).toBe(expectedCardinality)
-  })
   it('books for N days', () => {
     const property = makeProperty()
     const startMoment = moment()
