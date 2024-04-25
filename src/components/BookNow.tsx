@@ -1,4 +1,11 @@
-import { FormEvent, FormEventHandler, ReactElement, useState } from 'react'
+import moment from 'moment'
+import {
+  FormEvent,
+  FormEventHandler,
+  ReactElement,
+  useEffect,
+  useState
+} from 'react'
 import { IProperty } from 'types'
 import BookingDatepicker from './BookingDatepicker'
 
@@ -27,6 +34,9 @@ export default function BookNow({
   const [startDate, setStartDate] = useState<Date | null>(null)
   const [endDate, setEndDate] = useState<Date | null>(null)
 
+  useEffect(() => {
+    setEndDate(startDate ? moment(startDate).add(1, 'day').toDate() : null)
+  }, [startDate])
   const handleSubmit: FormEventHandler = (ev: FormEvent) => {
     ev.preventDefault()
   }
@@ -50,7 +60,7 @@ export default function BookNow({
         <div className='flex-1'>
           <h3 className='mb-1'>End date</h3>
           <BookingDatepicker
-            minDate={startDate || new Date()}
+            minDate={moment(startDate).add(1, 'day').toDate() || new Date()}
             value={endDate}
             onChange={setEndDate}
           />

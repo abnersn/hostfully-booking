@@ -13,8 +13,10 @@ export default function BookingDatepicker(
   props: IDatePickerProps
 ): ReactElement {
   const handleChange = (value: DateValueType) => {
-    const dateValue = value ? moment(value.startDate).toDate() : null
-    console.log('changing date to', dateValue)
+    let dateValue = null
+    if (moment(value?.startDate).isValid()) {
+      dateValue = moment(value?.startDate).toDate()
+    }
     props.onChange(dateValue)
   }
   return (
@@ -23,6 +25,7 @@ export default function BookingDatepicker(
       placeholder='Select date'
       asSingle={true}
       useRange={false}
+      displayFormat='MMM DD, YYYY'
       value={{ startDate: props.value, endDate: props.value }}
       onChange={handleChange}
       minDate={props.minDate}
