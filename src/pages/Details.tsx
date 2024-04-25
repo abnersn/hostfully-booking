@@ -1,4 +1,6 @@
+import Container from 'components/Container'
 import DescriptionTag from 'components/DescriptionTag'
+import Header from 'components/Header'
 import Title from 'components/Title'
 import { FormEvent, FormEventHandler, type ReactElement } from 'react'
 import { IconType } from 'react-icons'
@@ -142,15 +144,15 @@ export default function Properties(): ReactElement {
   }
 
   return (
-    <div className='grid place-items-center pt-4'>
-      <header className='w-full max-w-screen-xl'>
+    <Container>
+      <Header>
         <Title>
           <Link to='/'>
             <IoArrowBackOutline />
           </Link>{' '}
           {property.title}
         </Title>
-      </header>
+      </Header>
       <div className='mx-auto w-full max-w-screen-xl p-4'>
         <div className='box-border grid w-full grid-cols-1 grid-rows-[16rem_1fr] overflow-hidden rounded-lg bg-white shadow-lg md:h-44 md:grid-cols-[2fr_1fr] md:grid-rows-1'>
           <aside className='grid-areas-image grid grid-rows-1'>
@@ -177,6 +179,6 @@ export default function Properties(): ReactElement {
           </main>
         </div>
       </div>
-    </div>
+    </Container>
   )
 }

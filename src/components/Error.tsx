@@ -1,5 +1,8 @@
 import type { ReactElement } from 'react'
 import { FaArrowRotateRight } from 'react-icons/fa6'
+import Container from './Container'
+import Header from './Header'
+import Main from './Main'
 import Title from './Title'
 
 export default function (): ReactElement {
@@ -7,11 +10,11 @@ export default function (): ReactElement {
     location.reload()
   }
   return (
-    <div className='grid place-items-center pt-4'>
-      <header className='w-full max-w-screen-xl'>
+    <Container>
+      <Header>
         <Title>Sorry, an error occurred</Title>
-      </header>
-      <main className='mx-auto w-full max-w-screen-xl'>
+      </Header>
+      <Main>
         <div className='flex w-full flex-col gap-2 p-4 text-lg text-white'>
           We're working to fix it asap!
           <button
@@ -21,7 +24,7 @@ export default function (): ReactElement {
             <FaArrowRotateRight /> Try again
           </button>
         </div>
-      </main>
-    </div>
+      </Main>
+    </Container>
   )
 }

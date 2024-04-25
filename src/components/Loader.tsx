@@ -1,5 +1,8 @@
 import type { ReactElement } from 'react'
 import { FaSpinner } from 'react-icons/fa'
+import Container from './Container'
+import Header from './Header'
+import Main from './Main'
 import Title from './Title'
 
 function Skeleton(): ReactElement {
@@ -12,17 +15,17 @@ function Skeleton(): ReactElement {
 
 export default function (): ReactElement {
   return (
-    <div className='grid place-items-center pt-4'>
-      <header className='w-full max-w-screen-xl'>
+    <Container>
+      <Header>
         <Title>Loading accomodations...</Title>
-      </header>
-      <main className='mx-auto w-full max-w-screen-xl'>
+      </Header>
+      <Main>
         <ul className='grid w-full grid-cols-auto-fill-400 grid-rows-2 gap-4 p-4'>
           {new Array(6).fill(null).map((_, idx) => (
             <Skeleton key={idx} />
           ))}
         </ul>
-      </main>
-    </div>
+      </Main>
+    </Container>
   )
 }

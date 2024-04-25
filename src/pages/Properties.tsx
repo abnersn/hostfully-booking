@@ -12,6 +12,9 @@ import {
 } from 'redux-store/slices/properties'
 import type { IProperty } from 'types'
 
+import Container from 'components/Container'
+import Header from 'components/Header'
+import Main from 'components/Main'
 import { ratingsFormatter } from '../utils'
 
 export default function Properties(): ReactElement {
@@ -27,11 +30,11 @@ export default function Properties(): ReactElement {
   }
 
   return (
-    <div className='grid place-items-center pt-4'>
-      <header className='w-full max-w-screen-xl'>
+    <Container>
+      <Header>
         <Title>Find the perfect accomodation!</Title>
-      </header>
-      <main className='mx-auto w-full max-w-screen-xl'>
+      </Header>
+      <Main>
         <ul className='grid w-full grid-cols-auto-fill-400 grid-rows-2 gap-4 p-4'>
           {properties.map((p: IProperty) => (
             <li key={p.id}>
@@ -67,7 +70,7 @@ export default function Properties(): ReactElement {
             </li>
           ))}
         </ul>
-      </main>
-    </div>
+      </Main>
+    </Container>
   )
 }
