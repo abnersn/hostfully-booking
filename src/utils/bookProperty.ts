@@ -6,7 +6,7 @@ import { IProperty } from 'types'
  * Schedules are represented by binary strings, which then get converted to
  * BitSet.
  *
- * Each bit in the schedule represents a day of the year, 1 for occupied days
+ * Each bit in the schedule represents the next 1000 days, 1 for occupied days
  * and 0 for free days. By choosing this model, we're able to compute
  * booking availability for any date ranges with a simple logic AND operation.
  *
@@ -34,7 +34,6 @@ export default function bookProperty(
   const startDateIndex = moment(startDate).dayOfYear()
 
   // Compute bit range for given dates
-  console.log(property.schedule)
   const schedule = new BitSet(property.schedule)
   const range = new BitSet('0'.repeat(property.schedule.length))
   range.setRange(startDateIndex, startDateIndex + diff - 1, 1)

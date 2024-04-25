@@ -18,6 +18,14 @@ export interface IProperty {
   schedule: string
 }
 
+export interface IBooking {
+  id: string
+  propertyId: string
+  startDate: Date
+  endDate: Date
+  price: number
+}
+
 export interface IPropertiesSliceState {
   data: IProperty[]
   status: 'idle' | 'success' | 'error' | 'pending'
