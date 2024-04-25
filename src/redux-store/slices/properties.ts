@@ -26,7 +26,10 @@ const propertySlice = createSlice({
       fetchProperties.fulfilled,
       (state: IPropertiesSliceState, action: { payload: IProperty[] }) => {
         state.status = 'success'
-        state.data = action.payload
+        state.data = action.payload.map(p => {
+          p.schedule = '0'.repeat(1000)
+          return p
+        })
       }
     )
     builder.addCase(fetchProperties.pending, (state: IPropertiesSliceState) => {
@@ -44,18 +47,17 @@ const propertySlice = createSlice({
       (
         state: IPropertiesSliceState,
         action: {
-          payload: { property: IProperty; startDate: Date; endDate: Date }
+          payload: { propertyId: string; startDate: Date; endDate: Date }
         }
       ) => {
-        console.log('I ran')
         const properties = state.data
-        const { property, startDate, endDate } = action.payload
-        const propertyIndex = properties.findIndex(p => p.id === property.id)
+        const { propertyId, startDate, endDate } = action.payload
+        const propertyIndex = properties.findIndex(p => p.id === propertyId)
         if (propertyIndex === -1) {
           return
         }
         properties[propertyIndex].schedule = bookProperty(
-          property,
+          properties[propertyIndex],
           startDate,
           endDate
         )

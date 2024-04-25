@@ -49,15 +49,15 @@ export default function BookNow({
 
   const handleSubmit: FormEventHandler = (ev: FormEvent) => {
     ev.preventDefault()
-    if (!startDate || !endDate) {
+    if (!moment(startDate).isValid() || !moment(endDate).isValid()) {
       return
     }
     store.dispatch({
-      type: 'booking/add',
+      type: 'bookings/add',
       payload: {
-        property,
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString()
+        propertyId: property.id,
+        startDate: startDate?.toISOString(),
+        endDate: endDate?.toISOString()
       }
     })
   }

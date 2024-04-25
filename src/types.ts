@@ -14,7 +14,6 @@ export interface IProperty {
   breakfastIncluded: boolean
   rating: number
   pricingPerNight: number
-
   schedule: string
 }
 
