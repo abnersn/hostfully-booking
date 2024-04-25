@@ -1,9 +1,6 @@
 import type { ReactElement } from 'react'
 import { FaSpinner } from 'react-icons/fa'
-import Container from './Container'
-import Header from './Header'
-import Main from './Main'
-import Title from './Title'
+import { Container, Header, Main, Title } from './layout'
 
 function Skeleton(): ReactElement {
   return (

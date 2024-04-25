@@ -1,7 +1,6 @@
-import Container from 'components/Container'
+
 import DescriptionTag from 'components/DescriptionTag'
-import Header from 'components/Header'
-import Title from 'components/Title'
+import { Container, Header, Title } from 'components/layout'
 import { FormEvent, FormEventHandler, type ReactElement } from 'react'
 import { IconType } from 'react-icons'
 import { CgCoffee } from 'react-icons/cg'
@@ -140,7 +139,9 @@ export default function Properties(): ReactElement {
   const property = useSelector(selectPropertyById(propertyId))
 
   if (!property) {
-    return <div>ok</div>
+    return (
+      
+    )
   }
 
   return (

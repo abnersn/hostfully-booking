@@ -1,9 +1,6 @@
 import type { ReactElement } from 'react'
 import { FaArrowRotateRight } from 'react-icons/fa6'
-import Container from './Container'
-import Header from './Header'
-import Main from './Main'
-import Title from './Title'
+import { Container, Header, Main, Title } from './layout'
 
 export default function (): ReactElement {
   const handleRefreshClick = () => {
