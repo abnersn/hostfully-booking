@@ -56,19 +56,15 @@ export default function BookNow({
       <hr className='my-2 border-blue-400' />
       <div className='mb-1 flex w-full flex-col gap-2 md:flex-row'>
         <div className='flex-1'>
-          <h3 className='mb-1'>Start date</h3>
+          <h3 className='mb-1'>Date</h3>
           <BookingDatepicker
             minDate={new Date()}
-            value={startDate}
-            onChange={setStartDate}
-          />
-        </div>
-        <div className='flex-1'>
-          <h3 className='mb-1'>End date</h3>
-          <BookingDatepicker
-            minDate={moment(startDate).add(1, 'day').toDate() || new Date()}
-            value={endDate}
-            onChange={setEndDate}
+            startDate={startDate}
+            endDate={endDate}
+            onChange={(startDate, endDate) => {
+              setStartDate(startDate)
+              setEndDate(endDate)
+            }}
           />
         </div>
       </div>

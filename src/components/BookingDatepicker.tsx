@@ -4,8 +4,9 @@ import { ReactElement } from 'react'
 import Datepicker, { DateValueType } from 'react-tailwindcss-datepicker'
 
 interface IDatePickerProps {
-  onChange: (date: Date | null) => void
-  value: Date | null
+  onChange: (startDate: Date | null, endDate: Date | null) => void
+  startDate: Date | null
+  endDate: Date | null
   minDate: Date
 }
 
@@ -13,20 +14,21 @@ export default function BookingDatepicker(
   props: IDatePickerProps
 ): ReactElement {
   const handleChange = (value: DateValueType) => {
-    let dateValue = null
-    if (moment(value?.startDate).isValid()) {
-      dateValue = moment(value?.startDate).toDate()
+    let startDate = null
+    let endDate = null
+    if (value) {
+      startDate = value.startDate ? moment(value.startDate).toDate() : null
+      endDate = value.endDate ? moment(value.endDate).toDate() : null
     }
-    props.onChange(dateValue)
+    props.onChange(startDate, endDate)
   }
   return (
     <Datepicker
       popoverDirection='up'
       placeholder='Select date'
-      asSingle={true}
-      useRange={false}
+      useRange={true}
       displayFormat='MMM DD, YYYY'
-      value={{ startDate: props.value, endDate: props.value }}
+      value={{ startDate: props.startDate, endDate: props.endDate }}
       onChange={handleChange}
       minDate={props.minDate}
     />
