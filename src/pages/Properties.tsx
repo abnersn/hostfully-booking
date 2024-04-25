@@ -1,8 +1,8 @@
+import DescriptionTag from 'components/DescriptionTag'
 import Error from 'components/Error'
 import LinkButton from 'components/LinkButton'
 import Loader from 'components/Loader'
 import { type ReactElement } from 'react'
-import type { IconType } from 'react-icons'
 import { FaMapMarkedAlt, FaUser } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 import {
@@ -10,21 +10,6 @@ import {
   selectPropertiesStatus
 } from 'redux-store/slices/properties'
 import type { IProperty } from 'types'
-
-function DescriptionTag({
-  Icon,
-  label
-}: {
-  Icon: IconType
-  label: string
-}): ReactElement {
-  return (
-    <div className='inline-flex items-center gap-1'>
-      <Icon className='text-sm' />
-      <span>{label}</span>
-    </div>
-  )
-}
 
 export default function Properties(): ReactElement {
   const properties = useSelector(selectProperties)

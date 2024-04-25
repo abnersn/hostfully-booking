@@ -1,11 +1,76 @@
+import DescriptionTag from 'components/DescriptionTag'
 import { type ReactElement } from 'react'
+import { IconType } from 'react-icons'
+import { CgCoffee } from 'react-icons/cg'
+import { FaMapMarkedAlt, FaRegSnowflake, FaUser, FaWifi } from 'react-icons/fa'
+import { FaTv } from 'react-icons/fa6'
 import { IoArrowBackOutline } from 'react-icons/io5'
+import { LuBedDouble, LuBedSingle } from 'react-icons/lu'
 import { useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { selectPropertyById } from 'redux-store/slices/properties'
+import { IProperty } from 'types'
 
 type IDetailsParams = {
   propertyId: string
+}
+function Amenity({
+  Icon,
+  label
+}: {
+  Icon: IconType
+  label: string
+}): ReactElement {
+  return (
+    <li className='flex min-w-20 flex-col items-center rounded border border-blue-900 px-2 py-1 text-blue-900'>
+      <Icon className='text-xl' />
+      <span>{label}</span>
+    </li>
+  )
+}
+
+function Amenities({ property }: { property: IProperty }): ReactElement | null {
+  if (
+    !property.hasWifi &&
+    !property.breakfastIncluded &&
+    !property.hasAC &&
+    !property.hasTV &&
+    !property.hasDoubleBed &&
+    !property.hasSingleBed
+  ) {
+    return null
+  }
+
+  return (
+    <>
+      <h2 className='mb-1 mt-4 font-bold uppercase text-blue-900'>Amenities</h2>
+      <ul className='flex flex-wrap gap-2'>
+        {property.hasWifi && <Amenity Icon={FaWifi} label='Free wifi' />}
+        {property.breakfastIncluded && (
+          <Amenity Icon={CgCoffee} label='Breakfast' />
+        )}
+        {property.hasAC && (
+          <Amenity Icon={FaRegSnowflake} label='Air Conditioner' />
+        )}
+        {property.hasTV && <Amenity Icon={FaTv} label='TV' />}
+        {property.hasDoubleBed && (
+          <Amenity Icon={LuBedDouble} label='Double bed' />
+        )}
+        {property.hasSingleBed && (
+          <Amenity Icon={LuBedSingle} label='Single bed' />
+        )}
+      </ul>
+    </>
+  )
+}
+
+function Description({ property }: { property: IProperty }): ReactElement {
+  return (
+    <>
+      <h2 className='mb-1 font-bold uppercase text-blue-900'>Description</h2>
+      <p className='mb-2'>{property.description}</p>
+    </>
+  )
 }
 
 export default function Properties(): ReactElement {
@@ -25,9 +90,28 @@ export default function Properties(): ReactElement {
         </Link>
         <h2>{property.title}</h2>
       </header>
-      <main className='mx-auto w-full max-w-screen-xl'>
-        <div className='grid-cols-[1fr 200px] m-4 grid h-80  w-full grid-rows-2 gap-4 rounded-lg bg-white p-4'></div>
-      </main>
+      <div className='mx-auto w-full max-w-screen-xl p-4'>
+        <div className='box-border grid h-44  w-full grid-cols-[2fr_1fr] grid-rows-1 overflow-hidden rounded-lg bg-white'>
+          <aside>
+            <img
+              className='h-full w-full object-cover'
+              src={property.picture}
+              alt={property.title}
+            />
+          </aside>
+          <main className='p-4'>
+            <div className='mb-2 flex gap-4'>
+              <DescriptionTag
+                Icon={FaMapMarkedAlt}
+                label={`${property.location}, ${property.country}`}
+              />
+              <DescriptionTag Icon={FaUser} label={property.owner} />
+            </div>
+            <Description property={property} />
+            <Amenities property={property} />
+          </main>
+        </div>
+      </div>
     </div>
   )
 }

@@ -7,6 +7,10 @@ export interface IProperty {
   picture: string
   country: string
   hasWifi: boolean
+  hasTV: boolean
+  hasAC: boolean
+  hasSingleBed: boolean
+  hasDoubleBed: boolean
   breakfastIncluded: boolean
   rating: number
   pricingPerNight: number

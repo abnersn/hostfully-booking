@@ -9,6 +9,9 @@ const config = {
       gridTemplateColumns: {
         'auto-fill-400': 'repeat(auto-fill, minmax(400px, 1fr))',
       },
+      height: {
+        '44': '44rem'
+      }
     }
   },
   experimental: { optimizeUniversalDefaults: true },
