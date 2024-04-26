@@ -9,10 +9,7 @@ import EditBooking from 'pages/EditBooking'
 import MyBookings from 'pages/MyBookings'
 import Properties from 'pages/Properties'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  fetchProperties,
-  selectPropertiesStatus
-} from 'redux-store/slices/properties'
+import { fetchProperties, selectPropertiesStatus } from 'redux-store/properties'
 
 export default function App(): ReactElement {
   const dispatch = useDispatch<any>()

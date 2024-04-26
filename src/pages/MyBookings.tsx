@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import {
   selectProperties,
   selectPropertiesStatus
-} from 'redux-store/slices/properties'
+} from 'redux-store/properties'
 import type { IBooking, IProperty } from 'types'
 
 import LinkButton from 'components/LinkButton'
@@ -14,7 +14,7 @@ import PropertyCard from 'components/PropertyCard'
 import { Container, Header, Main, Title } from 'components/layout'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
-import { selectBookings } from 'redux-store/slices/bookings'
+import { selectBookings } from 'redux-store/bookings'
 
 export default function MyBookings(): ReactElement {
   const properties = useSelector(selectProperties)

@@ -12,11 +12,11 @@ import { IoArrowBackOutline } from 'react-icons/io5'
 import { useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { RootState } from 'redux-store'
-import { selectBookingById } from 'redux-store/slices/bookings'
+import { selectBookingById } from 'redux-store/bookings'
 import {
   selectPropertiesStatus,
   selectPropertyById
-} from 'redux-store/slices/properties'
+} from 'redux-store/properties'
 type IEditBookingParams = {
   bookingId: string
 }

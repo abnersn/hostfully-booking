@@ -15,7 +15,7 @@ import { RootState } from 'redux-store'
 import {
   selectPropertiesStatus,
   selectPropertyById
-} from 'redux-store/slices/properties'
+} from 'redux-store/properties'
 type IDetailsParams = {
   propertyId: string
 }

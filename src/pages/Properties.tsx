@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import {
   selectProperties,
   selectPropertiesStatus
-} from 'redux-store/slices/properties'
+} from 'redux-store/properties'
 import type { IProperty } from 'types'
 
 import LinkButton from 'components/LinkButton'
