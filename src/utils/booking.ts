@@ -20,6 +20,8 @@ import { IProperty } from 'types'
  * The logic AND between schedule and range should result in a non-zero bit
  * string: 0000001110, indicating that the range intersects with
  * a pre-existent booking.
+ *
+ * @bitarray/es6 offers a space-efficient bit array with fast AND operations.
  */
 
 function setBits(bitArray: BitArray, start: number, end: number, value: 1 | 0) {
