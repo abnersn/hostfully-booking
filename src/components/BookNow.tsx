@@ -37,6 +37,7 @@ interface IBookNowProps {
   booking?: IBooking
 }
 
+// BookNow can both edit and create new bookings.
 export default function BookNow({
   property,
   booking
