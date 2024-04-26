@@ -78,6 +78,13 @@ export default function BookNow({
     setStatus('idle')
   }
 
+  let total = 0
+  let diff = 0
+  if (startDate && endDate) {
+    diff = moment(endDate).diff(startDate, 'days')
+    total = diff * property.pricingPerNight
+  }
+
   if (status === 'error') {
     return (
       <div className='mt-auto flex flex-col bg-blue-900 p-4 text-white'>
@@ -114,6 +121,11 @@ export default function BookNow({
         <p>
           To: <time>{moment(endDate).format('LL')}</time>
         </p>
+        <hr className='my-2 border-blue-400' />
+        <p>
+          Total: {formatter.format(total)}, {diff}{' '}
+          {diff > 1 ? 'nights' : 'night'}
+        </p>
         <Link
           to='/'
           className='ml-auto rounded-lg bg-green-600 px-4 py-2 text-lg shadow-md hover:bg-green-500 active:bg-green-700 '
@@ -125,12 +137,6 @@ export default function BookNow({
     )
   }
 
-  let total = 0
-  let diff = 0
-  if (startDate && endDate) {
-    diff = moment(endDate).diff(startDate, 'days')
-    total = diff * property.pricingPerNight
-  }
   return (
     <form
       onSubmit={handleSubmit}
