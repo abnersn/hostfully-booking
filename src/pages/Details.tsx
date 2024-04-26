@@ -1,16 +1,14 @@
+import Amenities from 'components/Amenities'
 import BookNow from 'components/BookNow'
-import DescriptionTag from 'components/DescriptionTag'
+import { Description, DescriptionTag } from 'components/Description'
 import Error from 'components/Error'
 import Loader from 'components/Loader'
 import NotFound from 'components/NotFound'
+import Rating from 'components/Rating'
 import { Container, Header, Title } from 'components/layout'
 import type { ReactElement } from 'react'
-import { IconType } from 'react-icons'
-import { CgCoffee } from 'react-icons/cg'
-import { FaMapMarkedAlt, FaRegSnowflake, FaUser, FaWifi } from 'react-icons/fa'
-import { FaTv } from 'react-icons/fa6'
+import { FaMapMarkedAlt, FaUser } from 'react-icons/fa'
 import { IoArrowBackOutline } from 'react-icons/io5'
-import { LuBedDouble, LuBedSingle } from 'react-icons/lu'
 import { useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { RootState } from 'redux-store'
@@ -18,77 +16,8 @@ import {
   selectPropertiesStatus,
   selectPropertyById
 } from 'redux-store/slices/properties'
-import { IProperty } from 'types'
-import { ratingsFormatter } from 'utils'
 type IDetailsParams = {
   propertyId: string
-}
-function Amenity({
-  Icon,
-  label
-}: {
-  Icon: IconType
-  label: string
-}): ReactElement {
-  return (
-    <li className='flex min-w-20 flex-col items-center rounded border border-blue-900 px-2 py-1 text-blue-900'>
-      <Icon className='text-xl' />
-      <span>{label}</span>
-    </li>
-  )
-}
-
-function Amenities({ property }: { property: IProperty }): ReactElement | null {
-  if (
-    !property.hasWifi &&
-    !property.breakfastIncluded &&
-    !property.hasAC &&
-    !property.hasTV &&
-    !property.hasDoubleBed &&
-    !property.hasSingleBed
-  ) {
-    return null
-  }
-
-  return (
-    <>
-      <h2 className='mb-1 mt-4 font-bold uppercase text-blue-900'>Amenities</h2>
-      <ul className='flex flex-wrap gap-2'>
-        {property.hasWifi && <Amenity Icon={FaWifi} label='Free wifi' />}
-        {property.breakfastIncluded && (
-          <Amenity Icon={CgCoffee} label='Breakfast' />
-        )}
-        {property.hasAC && (
-          <Amenity Icon={FaRegSnowflake} label='Air Conditioner' />
-        )}
-        {property.hasTV && <Amenity Icon={FaTv} label='TV' />}
-        {property.hasDoubleBed && (
-          <Amenity Icon={LuBedDouble} label='Double bed' />
-        )}
-        {property.hasSingleBed && (
-          <Amenity Icon={LuBedSingle} label='Single bed' />
-        )}
-      </ul>
-    </>
-  )
-}
-
-function Description({ property }: { property: IProperty }): ReactElement {
-  return (
-    <>
-      <h2 className='mb-1 font-bold uppercase text-blue-900'>Description</h2>
-      <p className='mb-2'>{property.description}</p>
-    </>
-  )
-}
-
-function Rating({ value }: { value: number }): ReactElement {
-  return (
-    <p className='grid-in-image mr-auto place-self-end rounded-tr-lg bg-blue-900 px-4 py-2 text-4xl font-bold text-white'>
-      <span className='text-yellow-500'>&#9733;</span>{' '}
-      <span>{ratingsFormatter.format(value)}</span>
-    </p>
-  )
 }
 
 export default function Properties(): ReactElement {
