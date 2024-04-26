@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import moment, { Moment } from 'moment'
 import { store } from 'redux-store'
 import { IBooking, IProperty } from 'types'
@@ -69,5 +70,18 @@ describe('bookings slice', () => {
 
     const editResult = state.bookings.find(b => b.id === '5')
     expect(editResult?.endDate).toEqual(newEndDate)
+  })
+  it('selects all bookings for a property', () => {
+    const state = store.getState()
+    const property = state.properties.data[0]
+    const bookingsIds = bookings
+      .selectAllBookingsForProperty(state, property.id)
+      .map(b => b.id)
+    expect(_.isEqual(bookingsIds, ['1', '2', '3', '5'])).toBe(true)
+  })
+  it('selects bookings by id', () => {
+    const state = store.getState()
+    const booking = bookings.selectBookingById(state, '1')
+    expect(booking).toBeTruthy()
   })
 })
