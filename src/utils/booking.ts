@@ -28,6 +28,13 @@ function setBits(bitArray: BitArray, start: number, end: number, value: 1 | 0) {
   }
 }
 
+export function dayDiff(startDate: Date, endDate: Date) {
+  if (moment(startDate).isSame(endDate, 'day')) {
+    return 0
+  }
+  return Math.ceil(moment(endDate).diff(startDate, 'days', true))
+}
+
 export function placeBooking(
   property: IProperty,
   startDate: Date,
@@ -36,8 +43,8 @@ export function placeBooking(
   if (endDate < startDate || startDate < new Date()) {
     throw new Error('Invalid date')
   }
-  const startIdx = moment(startDate).diff(new Date(), 'days')
-  const diff = moment(endDate).diff(startDate, 'days')
+  const startIdx = dayDiff(new Date(), startDate)
+  const diff = dayDiff(startDate, endDate)
 
   // Compute bit range for given dates
   const schedule = BitArray.from(property.schedule)
@@ -61,11 +68,11 @@ export function removeBooking(
   if (endDate < startDate || startDate < new Date()) {
     throw new Error('Invalid date')
   }
-  const startIdx = moment(startDate).diff(new Date(), 'days')
-  const diff = moment(endDate).diff(startDate, 'days')
+  const startIdx = dayDiff(new Date(), startDate)
+  const diff = dayDiff(startDate, endDate)
 
   // Compute bit range for given dates
   const schedule = BitArray.from(property.schedule)
-  setBits(schedule, startIdx, startIdx + diff, 0)
+  setBits(schedule, startIdx, startIdx + diff + 1, 0)
   return Object.values(schedule).join('').trim()
 }

@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom'
 import { RootState, store } from 'redux-store'
 import { selectAllBookingsForProperty } from 'redux-store/slices/bookings'
 import { IBooking, IProperty } from 'types'
+import { dayDiff } from '../utils/booking'
 import BookingDatepicker from './BookingDatepicker'
 
 const formatter = Intl.NumberFormat('en-US', {
@@ -58,7 +59,7 @@ export default function BookNow({
     }
 
     // Forbid same day
-    if (moment(endDate).diff(startDate, 'hours') < 24) {
+    if (dayDiff(startDate, endDate) === 0) {
       setStartDate(null)
       setEndDate(null)
     }
@@ -109,7 +110,7 @@ export default function BookNow({
   let total = 0
   let diff = 0
   if (startDate && endDate) {
-    diff = moment(endDate).diff(startDate, 'days')
+    diff = dayDiff(startDate, endDate)
     total = diff * property.pricingPerNight
   }
 

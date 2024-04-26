@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { placeBooking, removeBooking } from 'utils/booking'
+import { dayDiff, placeBooking, removeBooking } from 'utils/booking'
 
 const makeProperty = () => {
   return {
@@ -23,6 +23,18 @@ const makeProperty = () => {
     schedule: '0'.repeat(1000)
   }
 }
+
+describe('dayDiff', () => {
+  it('counts midnights between dates', () => {
+    expect(
+      dayDiff(new Date('2024-05-01 23:59:59'), new Date('2024-05-02 00:00:00'))
+    ).toBe(1)
+
+    expect(
+      dayDiff(new Date('2024-05-01 23:58:59'), new Date('2024-05-01 23:58:59'))
+    ).toBe(0)
+  })
+})
 
 describe('bookProperty', () => {
   it('refuses dates prior to today', () => {
@@ -112,7 +124,16 @@ describe('removeBooking', () => {
     property.schedule = removeBooking(property, startDate, endDate)
 
     expect(() => {
-      placeBooking(property, startDate, endDate)
+      placeBooking(
+        property,
+        moment().add(15, 'days').toDate(),
+        moment().add(45, 'days').toDate()
+      )
+      placeBooking(
+        property,
+        moment().add(16, 'days').toDate(),
+        moment().add(44, 'days').toDate()
+      )
     }).not.toThrow()
   })
 })
