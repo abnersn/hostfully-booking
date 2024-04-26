@@ -33,6 +33,14 @@ describe('dayDiff', () => {
     expect(
       dayDiff(new Date('2024-05-01 23:58:59'), new Date('2024-05-01 23:58:59'))
     ).toBe(0)
+
+    expect(
+      dayDiff(new Date('2024-05-01 00:00:00'), new Date('2024-05-01 23:58:59'))
+    ).toBe(0)
+
+    expect(
+      dayDiff(new Date('2024-05-01 00:00:00'), new Date('2024-05-02 00:00:00'))
+    ).toBe(1)
   })
 })
 
