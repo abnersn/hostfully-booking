@@ -69,30 +69,29 @@ export default function BookNow({
       return
     }
     try {
-      if (booking) {
-        store.dispatch({
-          type: 'bookings/edit',
-          payload: {
-            oldBooking: booking,
-            newBooking: {
-              id: booking.id,
+      let action = booking
+        ? {
+            type: 'bookings/edit',
+            payload: {
+              oldBooking: booking,
+              newBooking: {
+                id: booking.id,
+                propertyId: property.id,
+                startDate: startDate?.toISOString(),
+                endDate: endDate?.toISOString()
+              }
+            }
+          }
+        : {
+            type: 'bookings/add',
+            payload: {
+              id: `${property.id}-${Date.now()}`,
               propertyId: property.id,
               startDate: startDate?.toISOString(),
               endDate: endDate?.toISOString()
             }
           }
-        })
-      } else {
-        store.dispatch({
-          type: 'bookings/add',
-          payload: {
-            id: `${property.id}-${Date.now()}`,
-            propertyId: property.id,
-            startDate: startDate?.toISOString(),
-            endDate: endDate?.toISOString()
-          }
-        })
-      }
+      store.dispatch(action)
       setStatus('added')
     } catch (error) {
       setStatus('error')
