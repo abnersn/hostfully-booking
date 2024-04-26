@@ -1,7 +1,5 @@
-import _ from 'lodash'
-import moment, { Moment } from 'moment'
 import { store } from 'redux-store'
-import { IBooking, IProperty } from 'types'
+import { addBooking, daysFromNow, editBooking, removeBooking } from 'testUtils'
 import * as bookings from '../bookings'
 import { fetchProperties } from '../properties'
 
@@ -11,42 +9,16 @@ beforeEach(() => {
   store.dispatch(fetchProperties.fulfilled(p, ''))
 })
 
-function addBooking(id: string, startDate: Moment, endDate: Moment) {
-  const property: IProperty = store.getState().properties.data[0]
-  const booking = {
-    id,
-    startDate: startDate.toISOString(),
-    endDate: endDate.toISOString(),
-    propertyId: property.id
-  }
-  store.dispatch(bookings.add(booking))
-  return booking
-}
-
-function removeBooking(booking: any) {
-  store.dispatch(bookings.remove(booking))
-}
-
-function editBooking(oldBooking: IBooking, newBooking: IBooking) {
-  store.dispatch(
-    bookings.edit({
-      oldBooking,
-      newBooking
-    })
-  )
-  return newBooking
-}
-
-describe('bookings slice', () => {
+describe('bookings', () => {
   it('adds a booking', () => {
-    addBooking('1', moment().add(3, 'days'), moment().add(15, 'days'))
+    addBooking('1', daysFromNow(3), daysFromNow(15))
     const state = store.getState()
     expect(state.bookings[0].id).toBe('1')
   })
   it('removes a booking', () => {
-    addBooking('2', moment().add(1, 'days'), moment().add(3, 'days'))
-    addBooking('3', moment().add(4, 'days'), moment().add(5, 'days'))
-    const b4 = addBooking('4', moment().add(6, 'days'), moment().add(8, 'days'))
+    addBooking('2', daysFromNow(1), daysFromNow(3))
+    addBooking('3', daysFromNow(4), daysFromNow(5))
+    const b4 = addBooking('4', daysFromNow(6), daysFromNow(8))
 
     removeBooking(b4)
 
@@ -55,12 +27,8 @@ describe('bookings slice', () => {
     expect(state.bookings.find(b => b.id === b4.id)).toBeFalsy()
   })
   it('edits a booking', () => {
-    const oldBooking = addBooking(
-      '5',
-      moment().add(10, 'days'),
-      moment().add(15, 'days')
-    )
-    const newEndDate = moment().add(40, 'days').toISOString()
+    const oldBooking = addBooking('5', daysFromNow(10), daysFromNow(15))
+    const newEndDate = daysFromNow(40).toISOString()
     const newBooking = {
       ...oldBooking,
       endDate: newEndDate
@@ -71,13 +39,16 @@ describe('bookings slice', () => {
     const editResult = state.bookings.find(b => b.id === '5')
     expect(editResult?.endDate).toEqual(newEndDate)
   })
+})
+
+describe('bookings selectors', () => {
   it('selects all bookings for a property', () => {
     const state = store.getState()
     const property = state.properties.data[0]
     const bookingsIds = bookings
       .selectAllBookingsForProperty(state, property.id)
       .map(b => b.id)
-    expect(_.isEqual(bookingsIds, ['1', '2', '3', '5'])).toBe(true)
+    expect(bookingsIds).toEqual(['1', '2', '3', '5'])
   })
   it('selects bookings by id', () => {
     const state = store.getState()

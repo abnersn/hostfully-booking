@@ -64,8 +64,8 @@ export function placeBooking(
 
 export function removeBooking(
   property: IProperty,
-  startDate: Date,
-  endDate: Date
+  startDate: Date | string,
+  endDate: Date | string
 ) {
   if (endDate < startDate || startDate < new Date()) {
     throw new Error('Invalid date')
