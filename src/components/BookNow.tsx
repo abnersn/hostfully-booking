@@ -45,9 +45,11 @@ export default function BookNow({
   booking
 }: IBookNowProps): ReactElement {
   const [startDate, setStartDate] = useState<Date | null>(
-    booking?.startDate || null
+    booking?.startDate ? new Date(booking?.startDate) : null
   )
-  const [endDate, setEndDate] = useState<Date | null>(booking?.endDate || null)
+  const [endDate, setEndDate] = useState<Date | null>(
+    booking?.endDate ? new Date(booking?.endDate) : null
+  )
   const [status, setStatus] = useState<'idle' | 'added' | 'error'>('idle')
 
   const bookings = useSelector((state: RootState) =>
@@ -103,8 +105,8 @@ export default function BookNow({
   }
 
   const handleTryAgain = () => {
-    setStartDate(booking?.startDate || null)
-    setEndDate(booking?.endDate || null)
+    setStartDate(booking?.startDate ? new Date(booking?.startDate) : null)
+    setEndDate(booking?.endDate ? new Date(booking?.endDate) : null)
     setStatus('idle')
   }
 

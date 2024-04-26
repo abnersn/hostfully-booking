@@ -12,6 +12,9 @@ const propertiesFile = readFileSync(
   'utf-8'
 )
 const properties = JSON.parse(propertiesFile)
+for (const p of properties) {
+  p.schedule = '0'.repeat(1000)
+}
 
 // Mock requests
 const handlers = [
