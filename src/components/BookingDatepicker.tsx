@@ -30,7 +30,7 @@ export default function BookingDatepicker(
       popoverDirection='up'
       placeholder='Select date'
       disabledDates={props.disabledDates}
-      useRange={true}
+      useRange={false}
       displayFormat='MMM DD, YYYY'
       value={{ startDate: props.startDate, endDate: props.endDate }}
       onChange={handleChange}
