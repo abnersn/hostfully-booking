@@ -25,3 +25,11 @@ export function Title(props: PropsWithChildren): ReactElement {
     </h2>
   )
 }
+
+export function DetailsContainer(props: PropsWithChildren): ReactElement {
+  return (
+    <div className='box-border grid w-full grid-cols-1 grid-rows-[16rem_1fr] overflow-hidden rounded-lg bg-white shadow-lg md:h-44 md:grid-rows-1 lg:grid-cols-[2fr_1fr]'>
+      {props.children}
+    </div>
+  )
+}

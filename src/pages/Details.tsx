@@ -5,7 +5,7 @@ import Error from 'components/Error'
 import Loader from 'components/Loader'
 import NotFound from 'components/NotFound'
 import Rating from 'components/Rating'
-import { Container, Header, Title } from 'components/layout'
+import { Container, DetailsContainer, Header, Title } from 'components/layout'
 import type { ReactElement } from 'react'
 import { FaMapMarkedAlt, FaUser } from 'react-icons/fa'
 import { IoArrowBackOutline } from 'react-icons/io5'
@@ -51,7 +51,7 @@ export default function Properties(): ReactElement {
         </Title>
       </Header>
       <div className='mx-auto w-full max-w-screen-xl p-4'>
-        <div className='box-border grid w-full grid-cols-1 grid-rows-[16rem_1fr] overflow-hidden rounded-lg bg-white shadow-lg md:h-44 md:grid-rows-1 lg:grid-cols-[2fr_1fr]'>
+        <DetailsContainer>
           <aside className='grid-areas-image grid grid-rows-1'>
             <img
               className='grid-in-image h-full w-full object-cover'
@@ -74,7 +74,7 @@ export default function Properties(): ReactElement {
             </div>
             <BookNow property={property} />
           </main>
-        </div>
+        </DetailsContainer>
       </div>
     </Container>
   )

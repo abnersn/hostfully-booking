@@ -5,7 +5,7 @@ import { store } from 'redux-store'
 import { IBooking, IProperty } from 'types'
 import { ratingsFormatter } from 'utils'
 import Button from './Button'
-import DescriptionTag from './Description'
+import { DescriptionTag } from './Description'
 import LinkButton from './LinkButton'
 
 interface IPropertyCardProps {
