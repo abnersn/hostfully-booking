@@ -11,12 +11,16 @@ export function Main(props: PropsWithChildren): ReactElement {
 }
 
 export function Header(props: PropsWithChildren): ReactElement {
-  return <header className='w-full max-w-screen-xl'>{props.children}</header>
+  return (
+    <header className='flex w-full max-w-screen-xl flex-wrap items-end justify-between gap-2 px-4'>
+      {props.children}
+    </header>
+  )
 }
 
 export function Title(props: PropsWithChildren): ReactElement {
   return (
-    <h2 className='flex items-center gap-4 px-4 text-2xl text-white md:text-4xl'>
+    <h2 className='flex items-center gap-4 text-2xl text-white md:text-4xl'>
       {props.children}
     </h2>
   )

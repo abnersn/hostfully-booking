@@ -1,13 +1,15 @@
-import type { ReactElement } from 'react'
+import type { ReactElement, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 
 interface ILinkButtonProps {
+  icon?: ReactNode
   label: string
   to: string
   variant?: 'white' | 'blue'
 }
 
 export default function ({
+  icon,
   label,
   to,
   variant = 'blue'
@@ -20,9 +22,10 @@ export default function ({
   }
   return (
     <Link
-      className={`ml-auto inline-block rounded border  px-2 py-1 text-sm ${colorClasses}`}
+      className={` inline-flex items-center gap-2 rounded border px-2 py-1 text-sm ${colorClasses}`}
       to={to}
     >
+      {icon}
       {label}
     </Link>
   )

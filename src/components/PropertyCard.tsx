@@ -25,7 +25,7 @@ export default function PropertyCard(props: IProperty): ReactElement {
         </address>
         <DescriptionTag Icon={FaUser} label={props.owner} />
       </header>
-      <div className='mt-auto flex px-2 pb-2'>
+      <div className='mt-auto flex justify-between px-2 pb-2'>
         <p className='font-bold'>
           <span className='text-yellow-500'>&#9733;</span>{' '}
           {ratingsFormatter.format(props.rating)}

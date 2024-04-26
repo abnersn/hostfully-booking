@@ -16,7 +16,7 @@ const bookingsSlice = createSlice({
   }
 })
 
-const selectBookings = (state: RootState) => state.bookings
+export const selectBookings = (state: RootState) => state.bookings
 const selectPropertyId = (_state: RootState, propertyId: string) => propertyId
 const selectBookingId = (_state: RootState, bookingId: string) => bookingId
 

@@ -9,8 +9,10 @@ import {
 } from 'redux-store/slices/properties'
 import type { IProperty } from 'types'
 
+import LinkButton from 'components/LinkButton'
 import PropertyCard from 'components/PropertyCard'
 import { Container, Header, Main, Title } from 'components/layout'
+import { FaHotel } from 'react-icons/fa'
 
 export default function Properties(): ReactElement {
   const properties = useSelector(selectProperties)
@@ -28,6 +30,12 @@ export default function Properties(): ReactElement {
     <Container>
       <Header>
         <Title>Find the perfect accomodation!</Title>
+        <LinkButton
+          icon={<FaHotel />}
+          variant='white'
+          to='/myBookings'
+          label='My Bookings'
+        />
       </Header>
       <Main>
         <ul className='grid w-full grid-cols-auto-fill-400 grid-rows-2 gap-4 p-4'>
