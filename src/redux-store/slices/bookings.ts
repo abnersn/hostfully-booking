@@ -1,18 +1,22 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { RootState } from 'redux-store'
 
-import { IBooking } from 'types'
+import { IBooking, IBookingAction, IBookingEditAction } from 'types'
 
 const bookingsSlice = createSlice({
   name: 'bookings',
   initialState: <IBooking[]>[],
   reducers: {
-    add(state, action) {
+    add(state, action: IBookingAction) {
       state.push(action.payload)
     },
-    remove(state, action: { payload: IBooking }) {
+    remove(state, action: IBookingAction) {
       const idx = state.findIndex(b => b.id !== action.payload.id)
       state.splice(idx, 1)
+    },
+    edit(state, action: IBookingEditAction) {
+      const idx = state.findIndex(b => b.id !== action.payload.oldBooking.id)
+      state.splice(idx, 1, action.payload.newBooking)
     }
   }
 })
@@ -33,5 +37,5 @@ export const selectBookingById = createSelector(
     bookings.find(booking => booking.id === bookingId)
 )
 
-export const { add, remove } = bookingsSlice.actions
+export const { add, remove, edit } = bookingsSlice.actions
 export default bookingsSlice.reducer

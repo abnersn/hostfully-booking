@@ -1,3 +1,5 @@
+import { PayloadAction } from '@reduxjs/toolkit'
+
 export interface IProperty {
   id: string
   title: string
@@ -29,4 +31,13 @@ export interface IPropertiesSliceState {
   data: IProperty[]
   status: 'idle' | 'success' | 'error' | 'pending'
   error: string | null | undefined
+}
+
+export interface IBookingAction extends PayloadAction<IBooking> {
+  payload: IBooking
+}
+
+export interface IBookingEditAction
+  extends PayloadAction<{ oldBooking: IBooking; newBooking: IBooking }> {
+  payload: { oldBooking: IBooking; newBooking: IBooking }
 }

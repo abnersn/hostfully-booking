@@ -6,7 +6,7 @@ import {
 } from '@reduxjs/toolkit'
 
 import { RootState } from 'redux-store'
-import { IPropertiesSliceState, IProperty } from 'types'
+import { IBooking, IPropertiesSliceState, IProperty } from 'types'
 import { bookProperty, removeBooking } from 'utils/booking'
 import * as bookings from './bookings'
 
@@ -82,6 +82,34 @@ const propertySlice = createSlice({
           properties[propertyIndex],
           startDate,
           endDate
+        )
+      }
+    )
+    builder.addCase(
+      bookings.edit,
+      (
+        state: IPropertiesSliceState,
+        action: {
+          payload: { oldBooking: IBooking; newBooking: IBooking }
+        }
+      ) => {
+        const properties = state.data
+        const { oldBooking, newBooking } = action.payload
+        const propertyIndex = properties.findIndex(
+          p => p.id === oldBooking.propertyId
+        )
+        if (propertyIndex === -1) {
+          return
+        }
+        properties[propertyIndex].schedule = removeBooking(
+          properties[propertyIndex],
+          oldBooking.startDate,
+          oldBooking.endDate
+        )
+        properties[propertyIndex].schedule = bookProperty(
+          properties[propertyIndex],
+          newBooking.startDate,
+          newBooking.endDate
         )
       }
     )
