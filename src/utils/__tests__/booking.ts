@@ -1,6 +1,6 @@
 import BitSet from 'bitset'
 import moment from 'moment'
-import { bookProperty, removeBooking } from 'utils/booking'
+import { placeBooking, removeBooking } from 'utils/booking'
 
 const makeProperty = () => {
   return {
@@ -31,7 +31,7 @@ describe('bookProperty', () => {
     const startDate = moment().add(-1, 'day').toDate()
     const endDate = moment().add(10, 'day').toDate()
     expect(() => {
-      bookProperty(property, startDate, endDate)
+      placeBooking(property, startDate, endDate)
     }).toThrow()
   })
   it('refuses endDate after startDate', () => {
@@ -39,14 +39,14 @@ describe('bookProperty', () => {
     const startDate = moment().add(10, 'day').toDate()
     const endDate = moment().add(-1, 'day').toDate()
     expect(() => {
-      bookProperty(property, startDate, endDate)
+      placeBooking(property, startDate, endDate)
     }).toThrow()
   })
   it('books for N days', () => {
     const property = makeProperty()
     const startMoment = moment()
     const endMoment = moment().add(15, 'days')
-    const newSchedule = bookProperty(
+    const newSchedule = placeBooking(
       property,
       startMoment.toDate(),
       endMoment.toDate()
@@ -56,7 +56,7 @@ describe('bookProperty', () => {
   it('refuses overlapping bookings', () => {
     const property = makeProperty()
 
-    property.schedule = bookProperty(
+    property.schedule = placeBooking(
       property,
       moment().add(15, 'days').toDate(),
       moment().add(45, 'days').toDate()
@@ -64,7 +64,7 @@ describe('bookProperty', () => {
 
     // Overlapping from the left
     expect(() => {
-      bookProperty(
+      placeBooking(
         property,
         moment().add(5, 'days').toDate(),
         moment().add(45, 'days').toDate()
@@ -73,7 +73,7 @@ describe('bookProperty', () => {
 
     // Overlapping from the right
     expect(() => {
-      bookProperty(
+      placeBooking(
         property,
         moment().add(20, 'days').toDate(),
         moment().add(60, 'days').toDate()
@@ -82,7 +82,7 @@ describe('bookProperty', () => {
 
     // Overlapping from inside
     expect(() => {
-      bookProperty(
+      placeBooking(
         property,
         moment().add(20, 'days').toDate(),
         moment().add(30, 'days').toDate()
@@ -91,7 +91,7 @@ describe('bookProperty', () => {
 
     // Overlapping from outside
     expect(() => {
-      bookProperty(
+      placeBooking(
         property,
         moment().add(1, 'days').toDate(),
         moment().add(60, 'days').toDate()
@@ -106,12 +106,12 @@ describe('removeBooking', () => {
 
     const startDate = moment().add(15, 'days').toDate()
     const endDate = moment().add(45, 'days').toDate()
-    property.schedule = bookProperty(property, startDate, endDate)
+    property.schedule = placeBooking(property, startDate, endDate)
 
     property.schedule = removeBooking(property, startDate, endDate)
 
     expect(() => {
-      bookProperty(property, startDate, endDate)
+      placeBooking(property, startDate, endDate)
     }).not.toThrow()
   })
 })

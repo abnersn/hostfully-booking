@@ -7,7 +7,7 @@ import {
 
 import { RootState } from 'redux-store'
 import { IBooking, IPropertiesSliceState, IProperty } from 'types'
-import { bookProperty, removeBooking } from 'utils/booking'
+import { placeBooking, removeBooking } from 'utils/booking'
 import * as bookings from './bookings'
 
 const initialState: IPropertiesSliceState = {
@@ -57,7 +57,7 @@ const propertySlice = createSlice({
         if (propertyIndex === -1) {
           return
         }
-        properties[propertyIndex].schedule = bookProperty(
+        properties[propertyIndex].schedule = placeBooking(
           properties[propertyIndex],
           startDate,
           endDate
@@ -106,7 +106,7 @@ const propertySlice = createSlice({
           oldBooking.startDate,
           oldBooking.endDate
         )
-        properties[propertyIndex].schedule = bookProperty(
+        properties[propertyIndex].schedule = placeBooking(
           properties[propertyIndex],
           newBooking.startDate,
           newBooking.endDate

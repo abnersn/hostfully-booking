@@ -22,7 +22,7 @@ import { IProperty } from 'types'
  * a pre-existent booking.
  */
 
-export function bookProperty(
+export function placeBooking(
   property: IProperty,
   startDate: Date,
   endDate: Date
