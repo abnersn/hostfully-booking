@@ -16,7 +16,7 @@ export function Header(props: PropsWithChildren): ReactElement {
 
 export function Title(props: PropsWithChildren): ReactElement {
   return (
-    <h2 className='flex items-center gap-4 px-4 text-xl text-white md:text-4xl'>
+    <h2 className='flex items-center gap-4 px-4 text-2xl text-white md:text-4xl'>
       {props.children}
     </h2>
   )
