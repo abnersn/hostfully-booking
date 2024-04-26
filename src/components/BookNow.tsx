@@ -69,15 +69,30 @@ export default function BookNow({
       return
     }
     try {
-      store.dispatch({
-        type: booking ? 'bookings/edit' : 'bookings/add',
-        payload: {
-          id: booking ? booking.id : `${property.id}-${Date.now()}`,
-          propertyId: property.id,
-          startDate: startDate?.toISOString(),
-          endDate: endDate?.toISOString()
-        }
-      })
+      if (booking) {
+        store.dispatch({
+          type: 'bookings/edit',
+          payload: {
+            oldBooking: booking,
+            newBooking: {
+              id: booking.id,
+              propertyId: property.id,
+              startDate: startDate?.toISOString(),
+              endDate: endDate?.toISOString()
+            }
+          }
+        })
+      } else {
+        store.dispatch({
+          type: 'bookings/add',
+          payload: {
+            id: `${property.id}-${Date.now()}`,
+            propertyId: property.id,
+            startDate: startDate?.toISOString(),
+            endDate: endDate?.toISOString()
+          }
+        })
+      }
       setStatus('added')
     } catch (error) {
       setStatus('error')
@@ -85,8 +100,8 @@ export default function BookNow({
   }
 
   const handleTryAgain = () => {
-    setStartDate(null)
-    setEndDate(null)
+    setStartDate(booking?.startDate || null)
+    setEndDate(booking?.endDate || null)
     setStatus('idle')
   }
 
