@@ -11,12 +11,15 @@ const bookingsSlice = createSlice({
       state.push(action.payload)
     },
     remove(state, action: IBookingAction) {
-      const idx = state.findIndex(b => b.id !== action.payload.id)
-      state.splice(idx, 1)
+      return state.filter(b => b.id !== action.payload.id)
     },
     edit(state, action: IBookingEditAction) {
-      const idx = state.findIndex(b => b.id !== action.payload.oldBooking.id)
-      state.splice(idx, 1, action.payload.newBooking)
+      return state.map(b => {
+        if (b.id === action.payload.oldBooking.id) {
+          return action.payload.newBooking
+        }
+        return b
+      })
     }
   }
 })

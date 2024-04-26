@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom'
 import { RootState, store } from 'redux-store'
 import { selectAllBookingsForProperty } from 'redux-store/slices/bookings'
 import { IBooking, IProperty } from 'types'
+import { v4 as uuid } from 'uuid'
 import { dayDiff } from '../utils/booking'
 import BookingDatepicker from './BookingDatepicker'
 
@@ -87,7 +88,7 @@ export default function BookNow({
         : {
             type: 'bookings/add',
             payload: {
-              id: `${property.id}-${Date.now()}`,
+              id: uuid(),
               propertyId: property.id,
               startDate: startDate?.toISOString(),
               endDate: endDate?.toISOString()
