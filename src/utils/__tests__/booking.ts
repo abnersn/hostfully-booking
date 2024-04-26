@@ -52,7 +52,7 @@ describe('bookProperty', () => {
     )
     const expectedSchedule =
       '0'.repeat(15) + '1'.repeat(15) + '0'.repeat(1000 - 30)
-    expect(newSchedule).toBe(expectedSchedule)
+    expect(newSchedule).toEqual(expectedSchedule)
   })
   it('refuses overlapping bookings', () => {
     const property = makeProperty()

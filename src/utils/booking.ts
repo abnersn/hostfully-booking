@@ -1,10 +1,10 @@
-import BitSet from 'bitset'
+import BitArray from '@bitarray/es6'
 import moment from 'moment'
 import { IProperty } from 'types'
 
 /**
  * Schedules are represented by binary strings, which then get converted to
- * BitSet.
+ * a bit array.
  *
  * Each bit in the schedule represents the next 1000 days, 1 for occupied days
  * and 0 for free days. By choosing this model, we're able to compute
@@ -22,6 +22,12 @@ import { IProperty } from 'types'
  * a pre-existent booking.
  */
 
+function setBits(bitArray: BitArray, start: number, end: number, value: 1 | 0) {
+  for (let i = start; i < end; i++) {
+    bitArray[i] = value
+  }
+}
+
 export function placeBooking(
   property: IProperty,
   startDate: Date,
@@ -30,21 +36,21 @@ export function placeBooking(
   if (endDate < startDate || startDate < new Date()) {
     throw new Error('Invalid date')
   }
+  const startIdx = moment(startDate).diff(new Date(), 'days')
   const diff = moment(endDate).diff(startDate, 'days')
-  const startDateIndex = moment(startDate).dayOfYear()
 
   // Compute bit range for given dates
-  const schedule = new BitSet(property.schedule)
-  const range = new BitSet('0'.repeat(property.schedule.length))
-  range.setRange(startDateIndex, startDateIndex + diff - 1, 1)
+  const schedule = BitArray.from(property.schedule)
+  const mask = BitArray.from('0'.repeat(property.schedule.length))
+  setBits(mask, startIdx, startIdx + diff, 1)
 
-  const intersects = schedule.and(range)
-  if (!intersects.isEmpty()) {
+  const intersects = schedule['&'](mask)
+  if (intersects.count > 0) {
     throw new Error('Range is occupied.')
   }
 
-  schedule.setRange(startDateIndex, startDateIndex + diff - 1, 1)
-  return schedule.toString()
+  setBits(schedule, startIdx, startIdx + diff, 1)
+  return Object.values(schedule).join('').trim()
 }
 
 export function removeBooking(
@@ -55,11 +61,11 @@ export function removeBooking(
   if (endDate < startDate || startDate < new Date()) {
     throw new Error('Invalid date')
   }
+  const startIdx = moment(startDate).diff(new Date(), 'days')
   const diff = moment(endDate).diff(startDate, 'days')
-  const startDateIndex = moment(startDate).dayOfYear()
 
   // Compute bit range for given dates
-  const schedule = new BitSet(property.schedule)
-  schedule.setRange(startDateIndex, startDateIndex + diff - 1, 0)
-  return schedule.toString()
+  const schedule = BitArray.from(property.schedule)
+  setBits(schedule, startIdx, startIdx + diff, 0)
+  return Object.values(schedule).join('').trim()
 }
