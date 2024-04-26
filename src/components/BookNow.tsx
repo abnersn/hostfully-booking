@@ -123,7 +123,7 @@ export default function BookNow({
         </p>
         <hr className='my-2 border-blue-400' />
         <p>
-          Total: {formatter.format(total)}, {diff}{' '}
+          Total: {formatter.format(total)} · {diff}{' '}
           {diff > 1 ? 'nights' : 'night'}
         </p>
         <Link
