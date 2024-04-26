@@ -9,7 +9,7 @@ import { IBooking, IProperty } from 'types'
 import { store } from './redux-store'
 import * as bookings from './redux-store/bookings'
 
-function TestWrapper(props: PropsWithChildren): ReactElement {
+function CompleteTestWrapper(props: PropsWithChildren): ReactElement {
   store.dispatch(fetchProperties())
   return (
     <Provider store={store}>
@@ -18,9 +18,19 @@ function TestWrapper(props: PropsWithChildren): ReactElement {
   )
 }
 
+export function renderWithProviderAndRouter(ui: ReactElement): void {
+  render(ui, {
+    wrapper: CompleteTestWrapper
+  })
+}
+
+function SimpleTestWrapper(props: PropsWithChildren): ReactElement {
+  return <Provider store={store}>{props.children}</Provider>
+}
+
 export function renderWithProvider(ui: ReactElement): void {
   render(ui, {
-    wrapper: TestWrapper
+    wrapper: SimpleTestWrapper
   })
 }
 
