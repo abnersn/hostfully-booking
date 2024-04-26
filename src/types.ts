@@ -22,9 +22,8 @@ export interface IProperty {
 export interface IBooking {
   id: string
   propertyId: string
-  startDate: Date
-  endDate: Date
-  price: number
+  startDate: Date | string
+  endDate: Date | string
 }
 
 export interface IPropertiesSliceState {

@@ -30,7 +30,7 @@ function setBits(bitArray: BitArray, start: number, end: number, value: 1 | 0) {
   }
 }
 
-export function dayDiff(startDate: Date, endDate: Date) {
+export function dayDiff(startDate: Date | string, endDate: Date | string) {
   if (moment(startDate).isSame(endDate, 'day')) {
     return 0
   }
@@ -39,8 +39,8 @@ export function dayDiff(startDate: Date, endDate: Date) {
 
 export function placeBooking(
   property: IProperty,
-  startDate: Date,
-  endDate: Date
+  startDate: Date | string,
+  endDate: Date | string
 ) {
   if (endDate < startDate || startDate < new Date()) {
     throw new Error('Invalid date')
