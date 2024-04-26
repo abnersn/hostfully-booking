@@ -6,7 +6,12 @@ import {
 } from '@reduxjs/toolkit'
 
 import { RootState } from 'redux-store'
-import { IBooking, IPropertiesSliceState, IProperty } from 'types'
+import {
+  IBookingAction,
+  IBookingEditAction,
+  IPropertiesSliceState,
+  IProperty
+} from 'types'
 import { placeBooking, removeBooking } from 'utils/booking'
 import * as bookings from './bookings'
 
@@ -45,12 +50,7 @@ const propertySlice = createSlice({
     )
     builder.addCase(
       bookings.add,
-      (
-        state: IPropertiesSliceState,
-        action: {
-          payload: { propertyId: string; startDate: Date; endDate: Date }
-        }
-      ) => {
+      (state: IPropertiesSliceState, action: IBookingAction) => {
         const properties = state.data
         const { propertyId, startDate, endDate } = action.payload
         const propertyIndex = properties.findIndex(p => p.id === propertyId)
@@ -66,12 +66,7 @@ const propertySlice = createSlice({
     )
     builder.addCase(
       bookings.remove,
-      (
-        state: IPropertiesSliceState,
-        action: {
-          payload: { propertyId: string; startDate: Date; endDate: Date }
-        }
-      ) => {
+      (state: IPropertiesSliceState, action: IBookingAction) => {
         const properties = state.data
         const { propertyId, startDate, endDate } = action.payload
         const propertyIndex = properties.findIndex(p => p.id === propertyId)
@@ -87,12 +82,7 @@ const propertySlice = createSlice({
     )
     builder.addCase(
       bookings.edit,
-      (
-        state: IPropertiesSliceState,
-        action: {
-          payload: { oldBooking: IBooking; newBooking: IBooking }
-        }
-      ) => {
+      (state: IPropertiesSliceState, action: IBookingEditAction) => {
         const properties = state.data
         const { oldBooking, newBooking } = action.payload
         const propertyIndex = properties.findIndex(
