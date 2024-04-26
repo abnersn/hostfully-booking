@@ -7,8 +7,8 @@ import {
 
 import { RootState } from 'redux-store'
 import { IPropertiesSliceState, IProperty } from 'types'
-import { bookProperty } from 'utils/booking'
-import { add as addBooking } from './bookings'
+import { bookProperty, removeBooking } from 'utils/booking'
+import * as bookings from './bookings'
 
 const initialState: IPropertiesSliceState = {
   data: <IProperty[]>[],
@@ -44,7 +44,7 @@ const propertySlice = createSlice({
       }
     )
     builder.addCase(
-      addBooking,
+      bookings.add,
       (
         state: IPropertiesSliceState,
         action: {
@@ -58,6 +58,27 @@ const propertySlice = createSlice({
           return
         }
         properties[propertyIndex].schedule = bookProperty(
+          properties[propertyIndex],
+          startDate,
+          endDate
+        )
+      }
+    )
+    builder.addCase(
+      bookings.remove,
+      (
+        state: IPropertiesSliceState,
+        action: {
+          payload: { propertyId: string; startDate: Date; endDate: Date }
+        }
+      ) => {
+        const properties = state.data
+        const { propertyId, startDate, endDate } = action.payload
+        const propertyIndex = properties.findIndex(p => p.id === propertyId)
+        if (propertyIndex === -1) {
+          return
+        }
+        properties[propertyIndex].schedule = removeBooking(
           properties[propertyIndex],
           startDate,
           endDate

@@ -10,8 +10,9 @@ const bookingsSlice = createSlice({
     add(state, action) {
       state.push(action.payload)
     },
-    remove(state, action) {
-      state = state.filter(b => b.id !== action.payload)
+    remove(state, action: { payload: IBooking }) {
+      const idx = state.findIndex(b => b.id !== action.payload.id)
+      state.splice(idx, 1)
     }
   }
 })

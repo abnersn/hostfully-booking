@@ -22,7 +22,7 @@ export default function PropertyCard(props: IPropertyCardProps): ReactElement {
     }
     store.dispatch({
       type: 'bookings/remove',
-      payload: booking?.id
+      payload: booking
     })
   }
 
