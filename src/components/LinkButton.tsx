@@ -22,7 +22,7 @@ export default function ({
   }
   return (
     <Link
-      className={` inline-flex items-center gap-2 rounded border px-2 py-1 text-sm ${colorClasses}`}
+      className={`inline-flex items-center gap-2 rounded border px-2 py-1 text-sm ${colorClasses}`}
       to={to}
     >
       {icon}

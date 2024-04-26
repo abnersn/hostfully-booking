@@ -41,7 +41,7 @@ export default function Properties(): ReactElement {
         <ul className='grid w-full grid-cols-auto-fill-400 grid-rows-2 gap-4 p-4'>
           {properties.map((p: IProperty) => (
             <li key={p.id}>
-              <PropertyCard {...p} />
+              <PropertyCard property={p} />
             </li>
           ))}
         </ul>

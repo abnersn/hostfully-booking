@@ -50,7 +50,10 @@ export default function MyBookings(): ReactElement {
           <ul className='grid w-full grid-cols-auto-fill-400 grid-rows-2 gap-4 p-4'>
             {bookings.map((b: IBooking) => (
               <li key={b.id}>
-                <PropertyCard {...propertiesById[b.propertyId]} />
+                <PropertyCard
+                  property={propertiesById[b.propertyId]}
+                  booking={b}
+                />
               </li>
             ))}
           </ul>
