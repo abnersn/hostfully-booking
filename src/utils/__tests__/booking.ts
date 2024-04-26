@@ -1,6 +1,6 @@
 import BitSet from 'bitset'
 import moment from 'moment'
-import bookProperty from 'utils/bookProperty'
+import { bookProperty, removeBooking } from 'utils/booking'
 
 const makeProperty = () => {
   return {
@@ -25,7 +25,7 @@ const makeProperty = () => {
   }
 }
 
-describe('Property', () => {
+describe('bookProperty', () => {
   it('refuses dates prior to today', () => {
     const property = makeProperty()
     const startDate = moment().add(-1, 'day').toDate()
@@ -97,5 +97,21 @@ describe('Property', () => {
         moment().add(60, 'days').toDate()
       )
     }).toThrow()
+  })
+})
+
+describe('removeBooking', () => {
+  it('clears a date range', () => {
+    const property = makeProperty()
+
+    const startDate = moment().add(15, 'days').toDate()
+    const endDate = moment().add(45, 'days').toDate()
+    property.schedule = bookProperty(property, startDate, endDate)
+
+    property.schedule = removeBooking(property, startDate, endDate)
+
+    expect(() => {
+      bookProperty(property, startDate, endDate)
+    }).not.toThrow()
   })
 })

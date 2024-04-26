@@ -7,7 +7,7 @@ import {
 
 import { RootState } from 'redux-store'
 import { IPropertiesSliceState, IProperty } from 'types'
-import bookProperty from 'utils/bookProperty'
+import { bookProperty } from 'utils/booking'
 import { add as addBooking } from './bookings'
 
 const initialState: IPropertiesSliceState = {

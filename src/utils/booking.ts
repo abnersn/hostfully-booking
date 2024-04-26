@@ -22,7 +22,7 @@ import { IProperty } from 'types'
  * a pre-existent booking.
  */
 
-export default function bookProperty(
+export function bookProperty(
   property: IProperty,
   startDate: Date,
   endDate: Date
@@ -44,5 +44,22 @@ export default function bookProperty(
   }
 
   schedule.setRange(startDateIndex, startDateIndex + diff - 1, 1)
+  return schedule.toString()
+}
+
+export function removeBooking(
+  property: IProperty,
+  startDate: Date,
+  endDate: Date
+) {
+  if (endDate < startDate || startDate < new Date()) {
+    throw new Error('Invalid date')
+  }
+  const diff = moment(endDate).diff(startDate, 'days')
+  const startDateIndex = moment(startDate).dayOfYear()
+
+  // Compute bit range for given dates
+  const schedule = new BitSet(property.schedule)
+  schedule.setRange(startDateIndex, startDateIndex + diff - 1, 0)
   return schedule.toString()
 }
