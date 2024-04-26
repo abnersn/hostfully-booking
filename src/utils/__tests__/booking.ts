@@ -31,16 +31,17 @@ describe('dayDiff', () => {
     ).toBe(1)
 
     expect(
+      dayDiff(new Date('2024-05-01 00:00:00'), new Date('2024-05-02 00:00:00'))
+    ).toBe(1)
+  })
+  it('counts same day as zero', () => {
+    expect(
       dayDiff(new Date('2024-05-01 23:58:59'), new Date('2024-05-01 23:58:59'))
     ).toBe(0)
 
     expect(
       dayDiff(new Date('2024-05-01 00:00:00'), new Date('2024-05-01 23:58:59'))
     ).toBe(0)
-
-    expect(
-      dayDiff(new Date('2024-05-01 00:00:00'), new Date('2024-05-02 00:00:00'))
-    ).toBe(1)
   })
 })
 
@@ -143,5 +144,14 @@ describe('removeBooking', () => {
         moment().add(44, 'days').toDate()
       )
     }).not.toThrow()
+  })
+
+  it('refuses endDate after startDate', () => {
+    const property = makeProperty()
+    const startDate = moment().add(10, 'day').toDate()
+    const endDate = moment().add(-1, 'day').toDate()
+    expect(() => {
+      removeBooking(property, startDate, endDate)
+    }).toThrow()
   })
 })
