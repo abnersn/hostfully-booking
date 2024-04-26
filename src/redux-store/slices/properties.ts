@@ -54,9 +54,6 @@ const propertySlice = createSlice({
         const properties = state.data
         const { propertyId, startDate, endDate } = action.payload
         const propertyIndex = properties.findIndex(p => p.id === propertyId)
-        if (propertyIndex === -1) {
-          return
-        }
         properties[propertyIndex].schedule = placeBooking(
           properties[propertyIndex],
           startDate,
@@ -70,9 +67,6 @@ const propertySlice = createSlice({
         const properties = state.data
         const { propertyId, startDate, endDate } = action.payload
         const propertyIndex = properties.findIndex(p => p.id === propertyId)
-        if (propertyIndex === -1) {
-          return
-        }
         properties[propertyIndex].schedule = removeBooking(
           properties[propertyIndex],
           startDate,
@@ -88,9 +82,6 @@ const propertySlice = createSlice({
         const propertyIndex = properties.findIndex(
           p => p.id === oldBooking.propertyId
         )
-        if (propertyIndex === -1) {
-          return
-        }
         properties[propertyIndex].schedule = removeBooking(
           properties[propertyIndex],
           oldBooking.startDate,

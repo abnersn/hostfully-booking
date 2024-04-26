@@ -95,6 +95,7 @@ export default function BookNow({
       store.dispatch(action)
       setStatus('added')
     } catch (error) {
+      console.error(error)
       setStatus('error')
     }
   }
