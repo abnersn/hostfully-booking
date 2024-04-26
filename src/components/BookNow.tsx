@@ -8,9 +8,11 @@ import {
 } from 'react'
 import { FaCheck } from 'react-icons/fa'
 import { FaXmark } from 'react-icons/fa6'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { store } from 'redux-store'
-import { IProperty } from 'types'
+import { RootState, store } from 'redux-store'
+import { selectAllBookingsForProperty } from 'redux-store/slices/bookings'
+import { IBooking, IProperty } from 'types'
 import BookingDatepicker from './BookingDatepicker'
 
 const formatter = Intl.NumberFormat('en-US', {
@@ -30,14 +32,24 @@ function Pricing({ value }: { value: number }): ReactElement {
   )
 }
 
-export default function BookNow({
-  property
-}: {
+interface IBookNowProps {
   property: IProperty
-}): ReactElement {
-  const [startDate, setStartDate] = useState<Date | null>(null)
-  const [endDate, setEndDate] = useState<Date | null>(null)
+  booking?: IBooking
+}
+
+export default function BookNow({
+  property,
+  booking
+}: IBookNowProps): ReactElement {
+  const [startDate, setStartDate] = useState<Date | null>(
+    booking?.startDate || null
+  )
+  const [endDate, setEndDate] = useState<Date | null>(booking?.endDate || null)
   const [status, setStatus] = useState<'idle' | 'added' | 'error'>('idle')
+
+  const bookings = useSelector((state: RootState) =>
+    selectAllBookingsForProperty(state, property.id)
+  )
 
   useEffect(() => {
     if (!startDate || !endDate) {
@@ -58,9 +70,9 @@ export default function BookNow({
     }
     try {
       store.dispatch({
-        type: 'bookings/add',
+        type: booking ? 'bookings/edit' : 'bookings/add',
         payload: {
-          id: `${property.id}-${Date.now()}`,
+          id: booking ? booking.id : `${property.id}-${Date.now()}`,
           propertyId: property.id,
           startDate: startDate?.toISOString(),
           endDate: endDate?.toISOString()
@@ -148,6 +160,7 @@ export default function BookNow({
         <div className='flex-1'>
           <h3 className='mb-1'>Date</h3>
           <BookingDatepicker
+            disabledDates={bookings.filter(b => b.id !== booking?.id)}
             propertyId={property.id}
             minDate={new Date()}
             startDate={startDate}
@@ -165,13 +178,23 @@ export default function BookNow({
           visibility: total ? 'visible' : 'hidden'
         }}
       >{`Total for ${diff} ${diff > 1 ? 'nights' : 'night'}: ${formatter.format(total)}`}</p>
-      <button
-        disabled={!startDate || !endDate}
-        className='ml-auto rounded-lg bg-orange-500 px-4 py-2 text-lg shadow-md hover:bg-yellow-500 active:bg-yellow-600 disabled:bg-gray-500'
-        type='submit'
-      >
-        Book now!
-      </button>
+      {booking ? (
+        <button
+          disabled={!startDate || !endDate}
+          className='ml-auto rounded-lg bg-blue-500 px-4 py-2 text-lg shadow-md hover:bg-blue-500 active:bg-blue-600 disabled:bg-gray-500'
+          type='submit'
+        >
+          Save editions
+        </button>
+      ) : (
+        <button
+          disabled={!startDate || !endDate}
+          className='ml-auto rounded-lg bg-orange-500 px-4 py-2 text-lg shadow-md hover:bg-yellow-500 active:bg-yellow-600 disabled:bg-gray-500'
+          type='submit'
+        >
+          Book now!
+        </button>
+      )}
     </form>
   )
 }

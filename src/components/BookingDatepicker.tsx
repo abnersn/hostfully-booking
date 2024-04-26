@@ -1,10 +1,8 @@
 import moment from 'moment'
 import { ReactElement } from 'react'
-import { useSelector } from 'react-redux'
 
 import Datepicker, { DateValueType } from 'react-tailwindcss-datepicker'
-import { RootState } from 'redux-store'
-import { selectAllBookingsForProperty } from 'redux-store/slices/bookings'
+import { IBooking } from 'types'
 
 interface IDatePickerProps {
   propertyId: string
@@ -12,14 +10,12 @@ interface IDatePickerProps {
   startDate: Date | null
   endDate: Date | null
   minDate: Date
+  disabledDates: IBooking[]
 }
 
 export default function BookingDatepicker(
   props: IDatePickerProps
 ): ReactElement {
-  const bookings = useSelector((state: RootState) =>
-    selectAllBookingsForProperty(state, props.propertyId)
-  )
   const handleChange = (value: DateValueType) => {
     let startDate = null
     let endDate = null
@@ -33,7 +29,7 @@ export default function BookingDatepicker(
     <Datepicker
       popoverDirection='up'
       placeholder='Select date'
-      disabledDates={bookings}
+      disabledDates={props.disabledDates}
       useRange={true}
       displayFormat='MMM DD, YYYY'
       value={{ startDate: props.startDate, endDate: props.endDate }}

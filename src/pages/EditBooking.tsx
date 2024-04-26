@@ -12,32 +12,36 @@ import { IoArrowBackOutline } from 'react-icons/io5'
 import { useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { RootState } from 'redux-store'
+import { selectBookingById } from 'redux-store/slices/bookings'
 import {
   selectPropertiesStatus,
   selectPropertyById
 } from 'redux-store/slices/properties'
-type IDetailsParams = {
-  propertyId: string
+type IEditBookingParams = {
+  bookingId: string
 }
 
-export default function Details(): ReactElement {
-  const { propertyId } = useParams<IDetailsParams>() as IDetailsParams
+export default function EditBooking(): ReactElement {
+  const { bookingId } = useParams<IEditBookingParams>() as IEditBookingParams
+  const booking = useSelector((state: RootState) =>
+    selectBookingById(state, bookingId)
+  )
+
+  if (!booking) {
+    return <NotFound />
+  }
 
   const property = useSelector((state: RootState) =>
-    selectPropertyById(state, propertyId)
+    selectPropertyById(state, booking.propertyId)
   )
   const status = useSelector(selectPropertiesStatus)
 
-  if (status === 'error') {
+  if (status === 'error' || !property) {
     return <Error />
   }
 
   if (status === 'pending') {
     return <Loader />
-  }
-
-  if (!property) {
-    return <NotFound />
   }
 
   return (
@@ -72,7 +76,7 @@ export default function Details(): ReactElement {
               <Description property={property} />
               <Amenities property={property} />
             </div>
-            <BookNow property={property} />
+            <BookNow property={property} booking={booking} />
           </main>
         </DetailsContainer>
       </div>

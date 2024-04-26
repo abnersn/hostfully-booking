@@ -61,7 +61,7 @@ export default function PropertyCard(props: IPropertyCardProps): ReactElement {
           {booking ? (
             <>
               <Button onClick={handleRemove} label='Remove' color='red' />
-              <LinkButton to={`/properties/${property.id}`} label='Edit' />
+              <LinkButton to={`/myBookings/${booking.id}`} label='Edit' />
             </>
           ) : (
             <LinkButton
