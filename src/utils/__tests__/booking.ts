@@ -1,4 +1,3 @@
-import BitSet from 'bitset'
 import moment from 'moment'
 import { placeBooking, removeBooking } from 'utils/booking'
 
@@ -44,14 +43,16 @@ describe('bookProperty', () => {
   })
   it('books for N days', () => {
     const property = makeProperty()
-    const startMoment = moment()
-    const endMoment = moment().add(15, 'days')
+    const startMoment = moment().add(15, 'days')
+    const endMoment = moment().add(30, 'days')
     const newSchedule = placeBooking(
       property,
       startMoment.toDate(),
       endMoment.toDate()
     )
-    expect(new BitSet(newSchedule).cardinality()).toBe(15)
+    const expectedSchedule =
+      '0'.repeat(15) + '1'.repeat(15) + '0'.repeat(1000 - 30)
+    expect(newSchedule).toBe(expectedSchedule)
   })
   it('refuses overlapping bookings', () => {
     const property = makeProperty()
