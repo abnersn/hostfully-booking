@@ -10,3 +10,10 @@ npm run dev
 ```
 npm run test
 ```
+
+## Build
+```
+npm run build
+```
+
+You MUST serve files via HTTPS.
