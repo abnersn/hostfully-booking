@@ -8,7 +8,7 @@ import path from 'path'
 import { store } from 'redux-store'
 
 const propertiesFile = readFileSync(
-  path.join(process.cwd(), '/public/mocks/properties.json'),
+  path.join(process.cwd(), '/mocks/properties.json'),
   'utf-8'
 )
 const properties = JSON.parse(propertiesFile)
@@ -18,7 +18,7 @@ for (const p of properties) {
 
 // Mock requests
 const handlers = [
-  http.get('/public/mocks/properties.json', () => HttpResponse.json(properties))
+  http.get('/mocks/properties.json', () => HttpResponse.json(properties))
 ]
 const server = setupServer(...handlers)
 

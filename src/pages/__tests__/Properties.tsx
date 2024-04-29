@@ -16,7 +16,7 @@ describe('<Properties />', () => {
     await propertiesHasLoaded() // Waits to finish loading before moving on
   })
   it('shows refreshable error page', async () => {
-    server.use(http.get('/public/mocks/properties.json', HttpResponse.error))
+    server.use(http.get('/mocks/properties.json', HttpResponse.error))
     renderWithProviderAndRouter(<PropertiesPage />)
     const heading = await screen.findByText('Sorry, an error occurred')
     expect(heading).toBeInTheDocument()

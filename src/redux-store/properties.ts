@@ -107,7 +107,7 @@ export const selectPropertyById = createSelector(
 )
 export const fetchProperties = createAsyncThunk(
   'properties/fetchProperties',
-  async () => fetch('/public/mocks/properties.json').then(res => res.json())
+  async () => fetch('/mocks/properties.json').then(res => res.json())
 )
 
 export const resetProperties = propertySlice.actions.reset
